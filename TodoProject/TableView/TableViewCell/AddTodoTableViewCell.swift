@@ -50,8 +50,9 @@ class AddTodoTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureCell(titleList: [String]) {
+    func configureCell(titleList: [String], subtitle: String) {
         titleLabel.text = titleList[0]
+        subTitleLabel.text = subtitle
     }
 
 }

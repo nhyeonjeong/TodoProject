@@ -10,12 +10,8 @@ import SnapKit
 
 class AddTodoView: BaseView {
     
-    let todoListCases = TodoList.allCases
-    
     lazy var tableView: UITableView = {
         let view = UITableView()
-        view.delegate = self
-        view.dataSource = self
         view.rowHeight = UITableView.automaticDimension
         
         view.register(AddTodoMemoTableViewCell.self, forCellReuseIdentifier: AddTodoMemoTableViewCell.identifier)
@@ -50,39 +46,3 @@ class AddTodoView: BaseView {
 //    }
 }
 
-
-extension AddTodoView: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return todoListCases.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // 제목,메모 있는 셀만 다른 셀 사용
-        if indexPath.row == 0 {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: AddTodoMemoTableViewCell.identifier, for: indexPath) as? AddTodoMemoTableViewCell else {
-                
-                print(#function, "AddTodoMemoTableViewCell 타입캐스팅 실패")
-                return UITableViewCell()
-            }
-            let titleList = todoListCases[indexPath.row].tableViewCellTitle
-            cell.configureCell(titleList: titleList)
-            return cell
-        } else {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: AddTodoTableViewCell.identifier, for: indexPath) as? AddTodoTableViewCell else {
-                
-                print(#function, "AddTodoTableViewCell 타입캐스팅 실패")
-                return UITableViewCell()
-            }
-            let titleList = todoListCases[indexPath.row].tableViewCellTitle
-            cell.configureCell(titleList: titleList)
-            
-            return cell
-        }
-        
-    }
-//    
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        <#code#>
-//    }
-    
-}
