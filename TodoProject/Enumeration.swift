@@ -13,9 +13,8 @@ enum Constants {
     enum Color {
         static let backgroundColor = UIColor.black
         static let addViewBackgroundColor = UIColor.systemGray6
-        
-        
         static let addViewTableColor = UIColor.systemGray5
+        
         static let titleColor = UIColor.white
         static let subtitleColor = UIColor.systemGray2
         
