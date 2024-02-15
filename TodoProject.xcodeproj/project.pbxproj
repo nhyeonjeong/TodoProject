@@ -27,7 +27,9 @@
 		8B2A67F92B7D02A60014F6E1 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2A67F82B7D02A60014F6E1 /* UIView+Extension.swift */; };
 		8B6F0D422B7D09F10032284C /* AddTodoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6F0D412B7D09F10032284C /* AddTodoTableViewCell.swift */; };
 		8B6F0D452B7D0D980032284C /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8B6F0D442B7D0D980032284C /* SnapKit */; };
-		8B6F0D472B7D22F00032284C /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6F0D462B7D22F00032284C /* TestViewController.swift */; };
+		8BBA88042B7D7F6800CC2143 /* TodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBA88032B7D7F6800CC2143 /* TodoView.swift */; };
+		8BBA88082B7D80C900CC2143 /* EntireBoxCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBA88072B7D80C900CC2143 /* EntireBoxCollectionViewCell.swift */; };
+		8BBA88132B7DF2D100CC2143 /* AddTodoButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBA88122B7DF2D100CC2143 /* AddTodoButtonView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,7 +54,9 @@
 		8B2A67F32B7D00D40014F6E1 /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
 		8B2A67F82B7D02A60014F6E1 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		8B6F0D412B7D09F10032284C /* AddTodoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTodoTableViewCell.swift; sourceTree = "<group>"; };
-		8B6F0D462B7D22F00032284C /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		8BBA88032B7D7F6800CC2143 /* TodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoView.swift; sourceTree = "<group>"; };
+		8BBA88072B7D80C900CC2143 /* EntireBoxCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntireBoxCollectionViewCell.swift; sourceTree = "<group>"; };
+		8BBA88122B7DF2D100CC2143 /* AddTodoButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTodoButtonView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,7 +90,9 @@
 		8B2A67C42B7CFA0F0014F6E1 /* TodoProject */ = {
 			isa = PBXGroup;
 			children = (
+				8BBA88112B7DF2B400CC2143 /* CustomView */,
 				8B2A67F52B7D00ED0014F6E1 /* Extension */,
+				8BBA88062B7D807300CC2143 /* CollectionView */,
 				8B2A67EF2B7D00970014F6E1 /* TableView */,
 				8B2A67E42B7CFCE80014F6E1 /* Base */,
 				8B2A67D92B7CFC3C0014F6E1 /* Todo */,
@@ -137,7 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				8B2A67DA2B7CFC450014F6E1 /* TodoViewController.swift */,
-				8B6F0D462B7D22F00032284C /* TestViewController.swift */,
+				8BBA88032B7D7F6800CC2143 /* TodoView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -165,6 +171,22 @@
 				8B2A67F82B7D02A60014F6E1 /* UIView+Extension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		8BBA88062B7D807300CC2143 /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				8BBA88072B7D80C900CC2143 /* EntireBoxCollectionViewCell.swift */,
+			);
+			path = CollectionView;
+			sourceTree = "<group>";
+		};
+		8BBA88112B7DF2B400CC2143 /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				8BBA88122B7DF2D100CC2143 /* AddTodoButtonView.swift */,
+			);
+			path = CustomView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -246,8 +268,8 @@
 			files = (
 				8B2A67E32B7CFC760014F6E1 /* PriorityViewController.swift in Sources */,
 				8B2A67DB2B7CFC450014F6E1 /* TodoViewController.swift in Sources */,
-				8B6F0D472B7D22F00032284C /* TestViewController.swift in Sources */,
 				8B2A67F22B7D00B60014F6E1 /* AddTodoMemoTableViewCell.swift in Sources */,
+				8BBA88082B7D80C900CC2143 /* EntireBoxCollectionViewCell.swift in Sources */,
 				8B2A67F92B7D02A60014F6E1 /* UIView+Extension.swift in Sources */,
 				8B2A67F42B7D00D40014F6E1 /* Protocol.swift in Sources */,
 				8B2A67EC2B7CFED80014F6E1 /* AddTodoView.swift in Sources */,
@@ -255,10 +277,12 @@
 				8B6F0D422B7D09F10032284C /* AddTodoTableViewCell.swift in Sources */,
 				8B2A67CA2B7CFA0F0014F6E1 /* ViewController.swift in Sources */,
 				8B2A67C62B7CFA0F0014F6E1 /* AppDelegate.swift in Sources */,
+				8BBA88132B7DF2D100CC2143 /* AddTodoButtonView.swift in Sources */,
 				8B2A67E82B7CFCFA0014F6E1 /* BaseUIView.swift in Sources */,
 				8B2A67E62B7CFCF00014F6E1 /* BaseViewController.swift in Sources */,
 				8B2A67DF2B7CFC610014F6E1 /* DateViewController.swift in Sources */,
 				8B2A67EA2B7CFD580014F6E1 /* Enumeration.swift in Sources */,
+				8BBA88042B7D7F6800CC2143 /* TodoView.swift in Sources */,
 				8B2A67C82B7CFA0F0014F6E1 /* SceneDelegate.swift in Sources */,
 				8B2A67E12B7CFC680014F6E1 /* TagViewController.swift in Sources */,
 			);
