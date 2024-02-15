@@ -40,12 +40,56 @@ class TodoListViewController: BaseViewController {
     }
     
     @objc func rightBarButtonClicked() {
-        // pull down button
-        
+//        let realm = try! Realm()
+//        // pull down button
+//        let deadlineSort = UIAction(title: "마감일순으로 보기") { _ in
+//            self.data = realm.objects(TodoTable.self).sorted(byKeyPath: "deadline", ascending: true)
+//            
+//            self.mainView.tableView.reloadData()
+//        }
+//        let titleSort = UIAction(title: "제목 순으로 보기") { _ in
+//            self.data = realm.objects(TodoTable.self).sorted(byKeyPath: "title", ascending: true)
+//            
+//            self.mainView.tableView.reloadData()
+//        }
+//        let lowPrioritySort = UIAction(title: "우선순위 낮음만 보기") { _ in
+//            self.data = realm.objects(TodoTable.self).sorted(byKeyPath: "priority", ascending: false)
+//            
+//            self.mainView.tableView.reloadData()
+//        }
+//        
+//        let buttonMenu = UIMenu(children: [deadlineSort, titleSort, lowPrioritySort])
+        print(#function)
     }
     
     override func configureView() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: Constants.Image.eclipes, style: .plain, target: self, action: #selector(rightBarButtonClicked))
+        let rightbarButton = UIBarButtonItem(image: Constants.Image.eclipes, style: .plain, target: self, action: #selector(rightBarButtonClicked))
+
+        
+        let realm = try! Realm()
+        // pull down button
+        let deadlineSort = UIAction(title: "마감일순으로 보기") { _ in
+            self.data = realm.objects(TodoTable.self).sorted(byKeyPath: "deadline", ascending: true)
+            
+            self.mainView.tableView.reloadData()
+        }
+        let titleSort = UIAction(title: "제목 순으로 보기") { _ in
+            self.data = realm.objects(TodoTable.self).sorted(byKeyPath: "memoTitle", ascending: true)
+            
+            self.mainView.tableView.reloadData()
+        }
+        let lowPrioritySort = UIAction(title: "우선순위 낮음만 보기") { _ in
+            self.data = realm.objects(TodoTable.self).where{
+                $0.priority == 3
+            }
+            self.mainView.tableView.reloadData()
+        }
+        
+        let buttonMenu = UIMenu(children: [deadlineSort, titleSort, lowPrioritySort])
+        
+        rightbarButton.menu = buttonMenu
+        
+        navigationItem.rightBarButtonItem = rightbarButton
     }
 }
 
@@ -59,7 +103,7 @@ extension TodoListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data.count
-    }
+    } 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let row = indexPath.row
