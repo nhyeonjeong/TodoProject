@@ -18,7 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(windowScene: windowScene)
         
-        let vc = UINavigationController(rootViewController: TodoViewController())
+        let vc = UINavigationController(rootViewController: ClassifyViewController())
         
         window?.rootViewController = vc
         

@@ -10,20 +10,12 @@ import SnapKit
 
 class DateViewController: BaseViewController {
     
-    var date: ((String) -> Void)?
-    
-    let format: DateFormatter = {
-        let format = DateFormatter()
-        //        format.dateFormat = "yyyy년 MM월 dd일"
-        format.dateFormat = "yyyy.M.d"
-        return format
-    }()
+    var date: ((Date) -> Void)?
    
     lazy var datePicker: UIDatePicker = {
         let view = UIDatePicker()
         view.preferredDatePickerStyle = .wheels
         view.datePickerMode = .date
-//        view.addTarget(self, action: #selector(datePickerSelected), for: .valueChanged)
         return view
     }()
 
@@ -38,8 +30,7 @@ class DateViewController: BaseViewController {
         guard let date else {
             return
         }
-        let result = format.string(from: datePicker.date)
-        date(result)
+        date(datePicker.date)
     }
 //    @objc
 //    func datePickerSelected() {
