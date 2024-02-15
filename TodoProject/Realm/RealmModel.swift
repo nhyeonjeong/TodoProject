@@ -26,5 +26,10 @@ class TodoTable: Object {
         self.tag = tag
         self.priority = priority
     }
+    
+    var deadlinePriority: String {
+        let deadlineString = DateFormatter.Format.string(from: deadline)
+        return "\(deadlineString) | \(priority)순위"
+    }
 }
 
