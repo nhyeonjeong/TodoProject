@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class EntireBoxCollectionViewCell: UICollectionViewCell {
+class ClassifyCollectionViewCell: UICollectionViewCell {
     // 나중에 backView customView로 만들기
     let backView: UIView = {
         let view = UIView()

@@ -58,13 +58,15 @@ class AddTodoViewController: BaseViewController {
     }
     
     @objc
-    func addButtonClicked() {
+    func addButtonClicked() { // 추가 버튼
+        // realm create
+        
         dismiss(animated: true)
 
     }
     
     @objc
-    func cancelButtonClicked() {
+    func cancelButtonClicked() { // 취소 버튼
         dismiss(animated: true)
     }
     

@@ -69,7 +69,7 @@ enum TodoList: String, CaseIterable {
 //    }
 }
 
-enum EntireList: Int, CaseIterable {
+enum TodoClassify: Int, CaseIterable {
     case today = 0
     case expected
     case entire

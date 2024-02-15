@@ -7,16 +7,16 @@
 
 import UIKit
 
-class TodoViewController: BaseViewController {
+class ClassifyViewController: BaseViewController {
     let customAddButton = AddTodoButtonView()
     var addTodoButton = UIBarButtonItem()
     
 //    lazy var addButtonTapGesture = UITapGestureRecognizer(target: self, action: #selector(addTodoButtonClicked))
     var addListButton = UIBarButtonItem()
     
-    let mainView = TodoView()
+    let mainView = ClassifyView()
     
-    let entireCases = EntireList.allCases
+    let classifyCases = TodoClassify.allCases
     var memoCountList = [0,1,0,0,nil] // 컬렉션뷰에 나올 각 박스에 갯수
     
     override func loadView() {
@@ -56,7 +56,7 @@ class TodoViewController: BaseViewController {
     }
 }
 
-extension TodoViewController {
+extension ClassifyViewController {
     func settingBarButton() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: Constants.Image.eclipes, style: .plain, target: self, action: #selector(rightBarButtonItemClicked))
     }
@@ -81,16 +81,23 @@ extension TodoViewController {
     }
 }
 
-extension TodoViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension ClassifyViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func configureCollectionView() {
+        mainView.collectionView.delegate = self
+        mainView.collectionView.dataSource = self
+        mainView.collectionView.register(ClassifyCollectionViewCell.self, forCellWithReuseIdentifier: ClassifyCollectionViewCell.identifier)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return entireCases.count
+        return classifyCases.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let row = indexPath.row
-        let entirecase = entireCases[row]
+        let entirecase = classifyCases[row]
         
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EntireBoxCollectionViewCell.identifier, for: indexPath) as? EntireBoxCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ClassifyCollectionViewCell.identifier, for: indexPath) as? ClassifyCollectionViewCell else {
             return UICollectionViewCell()
         }
         
@@ -98,9 +105,13 @@ extension TodoViewController: UICollectionViewDelegate, UICollectionViewDataSour
         return cell
     }
     
-    func configureCollectionView() {
-        mainView.collectionView.delegate = self
-        mainView.collectionView.dataSource = self
-        mainView.collectionView.register(EntireBoxCollectionViewCell.self, forCellWithReuseIdentifier: EntireBoxCollectionViewCell.identifier)
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // 전체를 눌렀다면
+        if classifyCases[indexPath.item] == TodoClassify.entire {
+            let vc = TodoListViewController()
+            vc.classifyText = classifyCases[indexPath.item].titleString
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
+    
 }

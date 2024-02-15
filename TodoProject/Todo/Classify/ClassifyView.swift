@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class TodoView: BaseView {
+class ClassifyView: BaseView {
     
     let bigLabel: UILabel = {
         let view = UILabel()
@@ -50,7 +50,7 @@ class TodoView: BaseView {
     }
 }
 
-extension TodoView {
+extension ClassifyView {
     
     func collectionViewLayout() -> UICollectionViewLayout {
         let inset: CGFloat = 15
