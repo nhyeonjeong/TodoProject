@@ -32,7 +32,7 @@ class AddTodoViewController: BaseViewController {
         
         // notificationCenter로 값 전달
         NotificationCenter.default.addObserver(self, selector: #selector(addTodoNotification), name: Notification.Name("AddTodo"), object: nil)
-        
+
         mainView.backgroundColor = Constants.Color.addViewBackgroundColor // 검은색보다 좀 더 연한 색
         configureTableVeiw()
     }

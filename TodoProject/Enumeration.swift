@@ -23,11 +23,13 @@ enum Constants {
         static let pointColor3 = UIColor.green
     }
     enum Font {
+        static let boldBigTitle: UIFont = .boldSystemFont(ofSize: 24)
+        static let boldTitle: UIFont = .boldSystemFont(ofSize: 20)
         static let subtitle: UIFont = .systemFont(ofSize: 14)
-        static let talbeViewTitle: UIFont = .systemFont(ofSize: 15)
+        static let normalTitle: UIFont = .systemFont(ofSize: 15)
     }
     enum Image {
-        
+        static let eclipes = UIImage(systemName: "ellipsis.circle.fill")
     }
 }
 
@@ -65,4 +67,59 @@ enum TodoList: String, CaseIterable {
 //            return UIViewController() as! T
 //        }
 //    }
+}
+
+enum EntireList: Int, CaseIterable {
+    case today = 0
+    case expected
+    case entire
+    case flag
+    case completed
+    
+    var titleString: String {
+        switch self {
+        case .today:
+            return "오늘"
+        case .expected:
+            return "예정"
+        case .entire:
+            return "전체"
+        case .flag:
+            return "깃발 표시"
+        case .completed:
+            return "완료됨"
+        }
+    }
+    
+    var systemImage: UIImage { // UIImage에는 tintColor가 없다.
+        var systemname = ""
+        switch self {
+        case .today:
+            systemname = "calendar.circle.fill"
+        case .expected:
+            systemname = "calendar.circle.fill"
+        case .entire:
+            systemname = "tray.circle.fill"
+        case .flag:
+            systemname = "flag.circle.fill"
+        case .completed:
+            systemname = "checkmark.circle.fill"
+        }
+        return UIImage(systemName: systemname) ?? UIImage()
+    }
+    
+    var systmeImageViewTint: UIColor {
+        switch self {
+        case .today:
+            return .systemBlue
+        case .expected:
+            return .red
+        case .entire:
+            return .gray
+        case .flag:
+            return .orange
+        case .completed:
+            return .gray
+        }
+    }
 }

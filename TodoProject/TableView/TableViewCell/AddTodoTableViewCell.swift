@@ -11,6 +11,7 @@ class AddTodoTableViewCell: UITableViewCell {
     
     let backView: UIView = {
         let view = UIView()
+        view.backgroundColor = Constants.Color.addViewTableColor
         view.layer.cornerRadius = 10
         return view
     }()
@@ -22,7 +23,7 @@ class AddTodoTableViewCell: UITableViewCell {
     
     let subTitleLabel: UILabel = {
         let view = UILabel()
-        view.font = Constants.Font.talbeViewTitle
+        view.font = Constants.Font.normalTitle
         view.textColor = Constants.Color.subtitleColor
         view.textAlignment = .right
         return view
@@ -40,7 +41,6 @@ class AddTodoTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.backgroundColor = .clear
         self.backgroundColor = .clear // 없으면 안돼
-        backView.backgroundColor = Constants.Color.addViewTableColor
 
         configureHierarchy()
         configureConstraints()
