@@ -11,12 +11,13 @@ import RealmSwift
 class TodoTable: Object {
     @Persisted(primaryKey: true) var id: ObjectId
     @Persisted var memoTitle: String
-    @Persisted var memo: String?
-    @Persisted var deadline: String
+    @Persisted var memo: String
+    @Persisted var deadline: Date
     @Persisted var tag: String?
     @Persisted var priority: Int // 우선순위는 Int타입으로
     
-    init(memoTitle: String, memo: String? = nil, deadline: String, tag: String? = nil, priority: Int) {
+    // convenience써주지 않으면 런타임 오류
+    convenience init(memoTitle: String, memo: String, deadline: Date, tag: String? = nil, priority: Int) {
         
         self.init()
         self.memoTitle = memoTitle

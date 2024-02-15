@@ -13,6 +13,7 @@ class TodoListViewController: BaseViewController {
     
     var classifyText = ""
     
+    let list = ["dfsdf", "sdf"]
     override func loadView() {
         view = mainView
     }
@@ -42,10 +43,14 @@ extension TodoListViewController: UITableViewDelegate, UITableViewDataSource {
         mainView.tableView.register(TodoListTableViewCell.self, forCellReuseIdentifier: TodoListTableViewCell.identifier)
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        <#code#>
+        return list.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        <#code#>
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: TodoListTableViewCell.identifier, for: indexPath) as? TodoListTableViewCell else {
+            return UITableViewCell()
+        }
+        
+        return cell
     }
 }

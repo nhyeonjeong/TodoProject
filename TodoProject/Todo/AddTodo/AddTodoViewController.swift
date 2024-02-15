@@ -6,12 +6,20 @@
 //
 
 import UIKit
+import RealmSwift
 
 class AddTodoViewController: BaseViewController {
     
     let mainView = AddTodoView()
     
     let todoCases = TodoList.allCases
+    // 마감일을 Date타입으로 받아온 것
+    var deadlineDate = Date()
+    // tag 따로 저장
+    var tagString = ""
+    // Priority를 Int타입으로 저장한 것
+    var priorityInt = 0
+    
     // subtitle을 모아놓은 리스트
     lazy var todoSubTItles: [String] = {
         var array: [String] = []
@@ -19,6 +27,13 @@ class AddTodoViewController: BaseViewController {
             array.append("")
         }
         return array
+    }()
+    
+    let format: DateFormatter = {
+        let format = DateFormatter()
+        //        format.dateFormat = "yyyy년 MM월 dd일"
+        format.dateFormat = "yyyy.M.d"
+        return format
     }()
     
     override func loadView() {
@@ -48,10 +63,12 @@ class AddTodoViewController: BaseViewController {
     func addTodoNotification(notification: NSNotification) {
         if let value = notification.userInfo?[TodoList.tag.todoListString] as? String {
             print(#function, "value")
+            tagString = value
             todoSubTItles[2] = value
         }
-        if let value = notification.userInfo?[TodoList.priority.todoListString] as? String {
-            todoSubTItles[3] = value
+        if let value = notification.userInfo?[TodoList.priority.todoListString] as? Int {
+            priorityInt = value
+            todoSubTItles[3] = "\(value)순위"
         }
         
         mainView.tableView.reloadRows(at: [IndexPath(row: 2, section: 0), IndexPath(row: 3, section: 0)], with: .fade)
@@ -60,7 +77,20 @@ class AddTodoViewController: BaseViewController {
     @objc
     func addButtonClicked() { // 추가 버튼
         // realm create
+        let realm = try! Realm()
+        print(realm.configuration.fileURL) // 램파일의 위치
         
+        guard let cell = mainView.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? AddTodoMemoTableViewCell else {
+            return
+        }
+        // record에 들어갈 내용 구성
+        let data = TodoTable(memoTitle: cell.titleTextField.text!, memo: cell.memoTextView.text!, deadline: deadlineDate, tag: tagString, priority: priorityInt)
+        
+        // realm에 추가
+        try! realm.write {
+            realm.add(data)
+            print("create 성공!")
+        }
         dismiss(animated: true)
 
     }
@@ -132,8 +162,11 @@ extension AddTodoViewController: UITableViewDelegate, UITableViewDataSource {
         switch todoCases[row] {
         case .deadline:
             let vc = DateViewController()
-            vc.date = { value in
-                self.todoSubTItles[row] = value
+            vc.date = { date in
+                self.deadlineDate = date
+                let result = self.format.string(from: date)
+
+                self.todoSubTItles[row] = result
                 tableView.reloadRows(at: [IndexPath(row: row, section: 0)], with: .fade)
             }
             navigationController?.pushViewController(vc, animated: true)

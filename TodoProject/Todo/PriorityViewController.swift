@@ -30,7 +30,7 @@ class PriorityViewController: BaseViewController {
         
         // 선택했는지 안했는지 처리해주지 않으면 런타임 오류
         selectedIndex = segment.isSelected ? segment.selectedSegmentIndex : 0
-        NotificationCenter.default.post(name: NSNotification.Name("AddTodo"), object: nil, userInfo: [TodoList.priority.todoListString: "\(segment.titleForSegment(at: selectedIndex) ?? "0" )순위"])
+        NotificationCenter.default.post(name: NSNotification.Name("AddTodo"), object: nil, userInfo: [TodoList.priority.todoListString: Int(segment.titleForSegment(at: selectedIndex) ?? "0") ?? 0])
     }
     
     override func configureHierarchy() {
