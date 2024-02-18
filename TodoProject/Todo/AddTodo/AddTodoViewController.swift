@@ -9,6 +9,7 @@ import UIKit
 import RealmSwift
 
 class AddTodoViewController: BaseViewController {
+    let repository = TodoTableRepository()
     
     let mainView = AddTodoView()
     
@@ -78,7 +79,6 @@ class AddTodoViewController: BaseViewController {
     func addButtonClicked() { // 추가 버튼
         // realm create
         let realm = try! Realm()
-        print(realm.configuration.fileURL) // 램파일의 위치
         
         guard let cell = mainView.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? AddTodoMemoTableViewCell else {
             return
@@ -87,10 +87,8 @@ class AddTodoViewController: BaseViewController {
         let data = TodoTable(memoTitle: cell.titleTextField.text!, memo: cell.memoTextView.text!, deadline: deadlineDate, tag: tagString, priority: priorityInt)
         
         // realm에 추가
-        try! realm.write {
-            realm.add(data)
-            print("create 성공!")
-        }
+        repository.createItem(data)
+        
         dismiss(animated: true)
 
     }
