@@ -7,6 +7,7 @@
 
 import UIKit
 import RealmSwift
+import Toast
 
 class AddTodoViewController: BaseViewController {
     let repository = TodoTableRepository()
@@ -77,20 +78,23 @@ class AddTodoViewController: BaseViewController {
     
     @objc
     func addButtonClicked() { // 추가 버튼
-        // realm create
-        let realm = try! Realm()
-        
         guard let cell = mainView.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? AddTodoMemoTableViewCell else {
             return
         }
-        // record에 들어갈 내용 구성
-        let data = TodoTable(memoTitle: cell.titleTextField.text!, memo: cell.memoTextView.text!, deadline: deadlineDate, tag: tagString, priority: priorityInt)
         
-        // realm에 추가
-        repository.createItem(data)
-        
-        dismiss(animated: true)
-
+        // 만약 제목이 비어있으면 토스트
+        if cell.titleTextField.text == "" {
+            view.makeToast("제목을 입력해주세요", duration: 1.0, position: .top)
+        } else {
+            
+            // record에 들어갈 내용 구성
+            let data = TodoTable(memoTitle: cell.titleTextField.text!, memo: cell.memoTextView.text!, deadline: deadlineDate, tag: tagString, priority: priorityInt)
+            
+            // realm에 추가
+            repository.createItem(data)
+            
+            dismiss(animated: true)
+        }
     }
     
     @objc
@@ -186,3 +190,5 @@ extension AddTodoViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
 }
+
+

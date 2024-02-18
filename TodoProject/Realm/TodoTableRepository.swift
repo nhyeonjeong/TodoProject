@@ -14,7 +14,7 @@ final class TodoTableRepository {
     
     // create
     func createItem(_ item: TodoTable) {
-
+        print(realm.configuration.fileURL) 
         do {
             try realm.write {
                 realm.add(item)
