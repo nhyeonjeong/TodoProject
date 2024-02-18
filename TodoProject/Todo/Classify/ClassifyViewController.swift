@@ -6,8 +6,13 @@
 //
 
 import UIKit
+import RealmSwift
 
 class ClassifyViewController: BaseViewController {
+    
+    let repository = TodoTableRepository()
+    var list: Results<TodoTable>!
+    
     let customAddButton = AddTodoButtonView()
     var addTodoButton = UIBarButtonItem()
     
@@ -29,6 +34,11 @@ class ClassifyViewController: BaseViewController {
 
         configureCollectionView()
 
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        list = repository.fetch()  // read
+        memoCountList[TodoClassify.entire.rawValue] = list.count // 갯수 업데이트
     }
     
     @objc
