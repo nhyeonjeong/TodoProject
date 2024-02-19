@@ -15,6 +15,7 @@ class TodoTable: Object {
     @Persisted var deadline: Date
     @Persisted var tag: String?
     @Persisted var priority: Int // 우선순위는 Int타입으로
+    @Persisted var isComplete: Bool // 완료했는지?
     
     // convenience써주지 않으면 런타임 오류
     convenience init(memoTitle: String, memo: String, deadline: Date, tag: String? = nil, priority: Int) {
@@ -25,11 +26,11 @@ class TodoTable: Object {
         self.deadline = deadline
         self.tag = tag
         self.priority = priority
+        self.isComplete = false
     }
     
-    var deadlinePriority: String {
+    var deadlinstFormatString: String {
         let deadlineString = DateFormatter.Format.string(from: deadline)
-        return "\(deadlineString) | \(priority)순위"
+        return "\(deadlineString)"
     }
 }
-

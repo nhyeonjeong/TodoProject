@@ -18,6 +18,8 @@ enum Constants {
         static let titleColor = UIColor.white
         static let subtitleColor = UIColor.systemGray2
         
+        static let tagColor = UIColor.blue
+        
         static let pointColor = UIColor.systemPink
         static let pointColor2 = UIColor.red
         static let pointColor3 = UIColor.green

@@ -22,7 +22,7 @@ class ClassifyViewController: BaseViewController {
     let mainView = ClassifyView()
     
     let classifyCases = TodoClassify.allCases
-    var memoCountList = [0,1,0,0,nil] // 컬렉션뷰에 나올 각 박스에 갯수
+    var memoCountList = [0,0,0,0,nil] // 컬렉션뷰에 나올 각 박스에 갯수
     
     override func loadView() {
         view = mainView
@@ -39,6 +39,7 @@ class ClassifyViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         list = repository.fetch()  // read
         memoCountList[TodoClassify.entire.rawValue] = list.count // 갯수 업데이트
+        mainView.collectionView.reloadData()
     }
     
     @objc

@@ -29,20 +29,6 @@ class AddTodoView: BaseView {
             make.edges.equalToSuperview()
         }
     }
-    
-//    override func configureView() {
-//        <#code#>
-//    }
-//    override init(frame: CGRect) {
-//        super.init(frame: frame)
-//        
-//    }
-//    
-//    // 스토리보드로 할 때 실행되는 구문
-//    required init?(coder: NSCoder) {
-//        super.init(coder: coder)
-//        //        configureView() // 스토리보드로 한다면 여기도 configureView호출
-//        print("textfield required init")
-//    }
+
 }
 
