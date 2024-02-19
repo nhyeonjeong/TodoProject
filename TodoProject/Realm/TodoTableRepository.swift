@@ -94,7 +94,18 @@ final class TodoTableRepository {
         }
     }
      */
-    
+    // delete
+    func deleteData(_ item: TodoTable) {
+        do {
+            try realm.write{
+                // 레코드는 유지된 채로 컬럼삭제는 삭제가 아니고 수정이다!!!!(삭제는 레코드 전체를 삭제)
+                realm.delete(item) // 이 데이터를 제거하겠다.
+            }
+        } catch {
+            print("deleteData", error)
+        }
+    }
+                     
     // update isComplete
     func updateIsComplete(_ item: TodoTable) {
         print(realm.configuration.fileURL)

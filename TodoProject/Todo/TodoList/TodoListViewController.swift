@@ -45,6 +45,10 @@ class TodoListViewController: BaseViewController {
     func checkboxClicked(_ sender: UIButton) { // 버튼에 달아준 addTarget은 sender 매개변수 가능!?
         // realm update
         repository.updateIsComplete(list[sender.tag])
+        // 다한 것은 제일 아래로 내리기
+//        let data = list[sender.tag]
+//        repository.deleteData(data)
+//        repository.createItem(data) 
         // UI 업데이트
         mainView.tableView.reloadRows(at: [IndexPath(row: sender.tag, section: 0)], with: .fade)
     }

@@ -33,14 +33,19 @@ class TodoListTableViewCell: UITableViewCell {
     func configureCell(data: TodoTable) {
         // 완료된 할 일 여부에 따라서 색 변경
         checkbox.backgroundColor = data.isComplete ? Constants.Color.pointColor : .clear
-        // 완료됐다면 타이틀의 색을 subtitle색으로
+        // 완료됐다면 타이틀의 색과 태그 색을 subtitle색으로
         titleLabel.textColor = data.isComplete ? Constants.Color.subtitleColor : Constants.Color.titleColor
+        memoLabel.text = data.memo
+        tagLabel.textColor = data.isComplete ? Constants.Color.subtitleColor : Constants.Color.pointColor
         memoLabel.text = data.memo
         
         if let text = data.tag { // nil이면 숨기기
             tagLabel.text = "# \(text)"
+            print("nil아님")
         } else {
             tagLabel.isHidden = true
+            print("nil")
+
         }
         
         // 우선순위에 따라서 제목 앞에 느낌표 다르게
@@ -129,7 +134,6 @@ class TodoListTableViewCell: UITableViewCell {
         deadlineLabel.textColor = Constants.Color.subtitleColor
         deadlineLabel.font = Constants.Font.subtitle
         
-        tagLabel.textColor = Constants.Color.tagColor
         tagLabel.font = Constants.Font.subtitle
     }
 
