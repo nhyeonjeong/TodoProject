@@ -18,6 +18,8 @@ class TodoListTableViewCell: UITableViewCell {
     let tagLabel = UILabel()
     let deadlineLabel = UILabel()
     
+    let todoImageView = UIImageView()
+    
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -67,6 +69,7 @@ class TodoListTableViewCell: UITableViewCell {
         contentView.addSubview(checkbox)
         contentView.addSubview(titleLabel)
         contentView.addSubview(stackView)
+        contentView.addSubview(todoImageView)
         stackView.addSubview(memoLabel)
         smallStackView.addSubview(deadlineLabel)
         smallStackView.addSubview(tagLabel)
@@ -90,10 +93,18 @@ class TodoListTableViewCell: UITableViewCell {
             make.height.equalTo(20)
         }
         
+        todoImageView.snp.makeConstraints { make in
+            make.top.equalTo(checkbox.snp.top)
+            make.trailing.equalTo(contentView).inset(10)
+            make.size.equalTo(50)
+            make.trailing.greaterThanOrEqualTo(contentView).inset(10)
+        }
+        
         stackView.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(8)
             make.leading.equalTo(titleLabel.snp.leading)
             make.bottom.equalTo(contentView).inset(10)
+            make.trailing.equalTo(todoImageView).inset(10)
         }
         
         memoLabel.snp.makeConstraints { make in
@@ -122,6 +133,7 @@ class TodoListTableViewCell: UITableViewCell {
         stackView.axis = .vertical
         smallStackView.axis = .horizontal
         
+        todoImageView.contentMode = .scaleAspectFill
         checkbox.layer.cornerRadius = 10
         checkbox.layer.borderWidth = 0.5
         checkbox.layer.borderColor = UIColor.gray.cgColor

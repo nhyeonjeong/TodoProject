@@ -105,6 +105,12 @@ extension TodoListViewController: UITableViewDelegate, UITableViewDataSource {
         }
         cell.checkbox.tag = row // checkbox에 태그달아서 관리
         cell.checkbox.addTarget(self, action: #selector(checkboxClicked), for: .touchUpInside)
+        // 이미지 가져오기
+        if let image = loadImageToDocument(filename: "\(list[row].id)") {
+            cell.todoImageView.image = image
+        } else {
+            cell.todoImageView.image = UIImage() // 막아야된다...
+        }
         cell.configureCell(data: list[row])
         return cell
     }
@@ -128,7 +134,12 @@ extension TodoListViewController: UITableViewDelegate, UITableViewDataSource {
     // 선택하면 상세 뷰로 화면전환
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = AddTodoViewController() // 추가하는 뷰 재활용...
-        
+        // 이미지 가져오기
+        let row = indexPath.row
+        if let image = loadImageToDocument(filename: "\(list[row].id)") {
+            vc.selectedImage = image
+            vc.mainView.tableView.reloadData()
+        }
         navigationController?.pushViewController(vc, animated: true)
     }
     
