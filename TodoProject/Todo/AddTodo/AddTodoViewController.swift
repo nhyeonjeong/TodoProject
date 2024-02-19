@@ -18,7 +18,7 @@ class AddTodoViewController: BaseViewController {
     // 마감일을 Date타입으로 받아온 것
     var deadlineDate = Date()
     // tag 따로 저장
-    var tagString: String? = nil
+    var tagString: String?
     // Priority를 Int타입으로 저장한 것
     var priorityInt = 0
     
@@ -86,7 +86,10 @@ class AddTodoViewController: BaseViewController {
         if cell.titleTextField.text == "" {
             view.makeToast("제목을 입력해주세요", duration: 1.0, position: .top)
         } else {
-            let tagText =
+            // 만약 tagString이 비어있다면 nil로 저장되도록
+            if tagString == "" {
+                tagString = nil
+            }
             // record에 들어갈 내용 구성
             let data = TodoTable(memoTitle: cell.titleTextField.text!, memo: cell.memoTextView.text!, deadline: deadlineDate, tag: tagString, priority: priorityInt)
             
