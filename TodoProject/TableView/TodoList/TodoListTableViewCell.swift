@@ -31,14 +31,27 @@ class TodoListTableViewCell: UITableViewCell {
     }
     
     func configureCell(data: TodoTable) {
-        titleLabel.text = data.memoTitle
         checkbox.tintColor = data.isComplete ? .red : .clear
         memoLabel.text = data.memo
+        
         if let text = data.tag { // nil이면 숨기기
             tagLabel.text = "# \(text)"
         } else {
             tagLabel.isHidden = true
         }
+        
+        // 우선순위에 따라서 제목 앞에 느낌표 다르게
+        switch data.priority {
+        case 1:
+            titleLabel.text = "! \(data.memoTitle)"
+        case 2:
+            titleLabel.text = "!! \(data.memoTitle)"
+        case 3:
+            titleLabel.text = "!!! \(data.memoTitle)"
+        default:
+            titleLabel.text = "\(data.memoTitle)"
+        }
+
         deadlineLabel.text = data.deadlinstFormatString
     }
     

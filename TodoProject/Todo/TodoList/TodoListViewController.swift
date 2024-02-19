@@ -78,6 +78,7 @@ extension TodoListViewController: UITableViewDelegate, UITableViewDataSource {
         mainView.tableView.dataSource = self
         mainView.tableView.rowHeight = UITableView.automaticDimension
         mainView.tableView.register(TodoListTableViewCell.self, forCellReuseIdentifier: TodoListTableViewCell.identifier)
+        mainView.tableView.allowsSelection = false // 선택되는 이벤트 안생기도록
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return list.count
