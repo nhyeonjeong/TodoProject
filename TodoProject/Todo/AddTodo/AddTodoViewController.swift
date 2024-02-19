@@ -97,7 +97,8 @@ class AddTodoViewController: BaseViewController {
             
             // realm에 추가
             repository.createItem(data)
-            
+            // 이미지 document아래에 저장
+            saveImageToDocument(image: selectedImage, filename: "\(data.id)")
             // 할 일 숫자 갱신
             let vc = ClassifyViewController()
             vc.viewWillAppear(true) // 안먹는듯..
