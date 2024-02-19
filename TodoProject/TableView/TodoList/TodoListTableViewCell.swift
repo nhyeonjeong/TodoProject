@@ -31,14 +31,35 @@ class TodoListTableViewCell: UITableViewCell {
     }
     
     func configureCell(data: TodoTable) {
-        titleLabel.text = data.memoTitle
-        checkbox.tintColor = data.isComplete ? .red : .clear
+        // 완료된 할 일 여부에 따라서 색 변경
+        checkbox.backgroundColor = data.isComplete ? Constants.Color.pointColor : .clear
+        // 완료됐다면 타이틀의 색과 태그 색을 subtitle색으로
+        titleLabel.textColor = data.isComplete ? Constants.Color.subtitleColor : Constants.Color.titleColor
         memoLabel.text = data.memo
+        tagLabel.textColor = data.isComplete ? Constants.Color.subtitleColor : Constants.Color.pointColor
+        memoLabel.text = data.memo
+        
         if let text = data.tag { // nil이면 숨기기
             tagLabel.text = "# \(text)"
+            print("nil아님")
         } else {
             tagLabel.isHidden = true
+            print("nil")
+
         }
+        
+        // 우선순위에 따라서 제목 앞에 느낌표 다르게
+        switch data.priority {
+        case 1:
+            titleLabel.text = "! \(data.memoTitle)"
+        case 2:
+            titleLabel.text = "!! \(data.memoTitle)"
+        case 3:
+            titleLabel.text = "!!! \(data.memoTitle)"
+        default:
+            titleLabel.text = "\(data.memoTitle)"
+        }
+
         deadlineLabel.text = data.deadlinstFormatString
     }
     
@@ -100,9 +121,11 @@ class TodoListTableViewCell: UITableViewCell {
     func configureView() {
         stackView.axis = .vertical
         smallStackView.axis = .horizontal
-        checkbox.layer.cornerRadius = 10
         
-        titleLabel.textColor = Constants.Color.titleColor
+        checkbox.layer.cornerRadius = 10
+        checkbox.layer.borderWidth = 0.5
+        checkbox.layer.borderColor = UIColor.gray.cgColor
+        
         titleLabel.font = Constants.Font.normalTitle
         
         memoLabel.textColor = Constants.Color.subtitleColor
@@ -111,7 +134,6 @@ class TodoListTableViewCell: UITableViewCell {
         deadlineLabel.textColor = Constants.Color.subtitleColor
         deadlineLabel.font = Constants.Font.subtitle
         
-        tagLabel.textColor = Constants.Color.tagColor
         tagLabel.font = Constants.Font.subtitle
     }
 

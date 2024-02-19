@@ -57,7 +57,7 @@ class ClassifyCollectionViewCell: UICollectionViewCell {
         systemImageView.tintColor = imageTintColor
         titleLabel.text = titleString
         
-        // memoCount가 Int?일 때는 ""
+        // memoCount가 nil일 때는 ""
         var count = ""
         if let memoCount {
             count = "\(memoCount)"

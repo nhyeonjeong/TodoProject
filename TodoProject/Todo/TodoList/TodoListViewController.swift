@@ -14,6 +14,7 @@ class TodoListViewController: BaseViewController {
     
     var classifyText = ""
 
+    let repository = TodoTableRepository()
     var list: Results<TodoTable>!
     
     override func loadView() {
@@ -37,6 +38,19 @@ class TodoListViewController: BaseViewController {
         list = realm.objects(TodoTable.self).sorted(byKeyPath: "deadline", ascending: true)
         
         mainView.tableView.reloadData()
+    }
+    
+    // 체크박스 눌렀을 때 event
+    @objc
+    func checkboxClicked(_ sender: UIButton) { // 버튼에 달아준 addTarget은 sender 매개변수 가능!?
+        // realm update
+        repository.updateIsComplete(list[sender.tag])
+        // 다한 것은 제일 아래로 내리기
+//        let data = list[sender.tag]
+//        repository.deleteData(data)
+//        repository.createItem(data) 
+        // UI 업데이트
+        mainView.tableView.reloadRows(at: [IndexPath(row: sender.tag, section: 0)], with: .fade)
     }
 
     override func configureView() {
@@ -79,6 +93,7 @@ extension TodoListViewController: UITableViewDelegate, UITableViewDataSource {
         mainView.tableView.rowHeight = UITableView.automaticDimension
         mainView.tableView.register(TodoListTableViewCell.self, forCellReuseIdentifier: TodoListTableViewCell.identifier)
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return list.count
     } 
@@ -88,7 +103,42 @@ extension TodoListViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TodoListTableViewCell.identifier, for: indexPath) as? TodoListTableViewCell else {
             return UITableViewCell()
         }
+        cell.checkbox.tag = row // checkbox에 태그달아서 관리
+        cell.checkbox.addTarget(self, action: #selector(checkboxClicked), for: .touchUpInside)
         cell.configureCell(data: list[row])
         return cell
+    }
+    
+//    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+//        return true // 편집 허락
+//    }
+//    
+
+//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//        
+//        // indexPath
+//        if editingStyle == .delete {
+//            // 삭제버튼을 눌렀을 때 행동
+//            repository.deleteData(list[indexPath.row])
+//            tableView.reloadData()
+//            
+//        }
+//    }
+    
+    // 선택하면 상세 뷰로 화면전환
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = AddTodoViewController() // 추가하는 뷰 재활용...
+        
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    // swipe했을 때 삭제
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let delete = UIContextualAction(style: .normal, title: "삭제") { action, view, completionHandler in
+            self.repository.deleteData(self.list[indexPath.row])
+            tableView.reloadData()
+        }
+        delete.backgroundColor = Constants.Color.pointColor
+        return UISwipeActionsConfiguration(actions: [delete])
     }
 }

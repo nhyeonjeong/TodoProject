@@ -14,7 +14,7 @@ final class TodoTableRepository {
     
     // create
     func createItem(_ item: TodoTable) {
-        print(realm.configuration.fileURL) 
+        print(realm.configuration.fileURL)
         do {
             try realm.write {
                 realm.add(item)
@@ -94,4 +94,27 @@ final class TodoTableRepository {
         }
     }
      */
+    // delete
+    func deleteData(_ item: TodoTable) {
+        do {
+            try realm.write{
+                // 레코드는 유지된 채로 컬럼삭제는 삭제가 아니고 수정이다!!!!(삭제는 레코드 전체를 삭제)
+                realm.delete(item) // 이 데이터를 제거하겠다.
+            }
+        } catch {
+            print("deleteData", error)
+        }
+    }
+                     
+    // update isComplete
+    func updateIsComplete(_ item: TodoTable) {
+        print(realm.configuration.fileURL)
+        do {
+            try realm.write({
+                item.isComplete.toggle() // list를 건드리면 싱크가 되어있어서 테이블도 변경될 것!! 와우 대박
+            })
+        } catch {
+            print(error)
+        }
+    }
 }

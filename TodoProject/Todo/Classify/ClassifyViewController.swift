@@ -38,7 +38,10 @@ class ClassifyViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         list = repository.fetch()  // read
-        memoCountList[TodoClassify.entire.rawValue] = list.count // 갯수 업데이트
+        memoCountList[TodoClassify.entire.rawValue] = list.count // 전체 리스트 갯수 업데이트
+        memoCountList[TodoClassify.completed.rawValue] = list.filter({ data in
+            data.isComplete // 완료된 데이터의 수
+        }).count
         mainView.collectionView.reloadData()
     }
     

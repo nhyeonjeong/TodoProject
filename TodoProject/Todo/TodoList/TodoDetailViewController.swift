@@ -1,17 +1,16 @@
 //
-//  AddTodoViewController.swift
+//  TodoDetailViewController.swift
 //  TodoProject
 //
-//  Created by 남현정 on 2024/02/14.
+//  Created by 남현정 on 2024/02/19.
 //
 
 import UIKit
-import RealmSwift
-import Toast
 
-class AddTodoViewController: BaseViewController {
+class TodoDetailViewController: BaseViewController {
+    // 메모타이틀, 메모, 마감일, 태그 수정, 우선순위...~...
     let repository = TodoTableRepository()
-    
+    // AddTodoView재사용
     let mainView = AddTodoView()
     
     let todoCases = TodoList.allCases
@@ -21,7 +20,6 @@ class AddTodoViewController: BaseViewController {
     var tagString: String?
     // Priority를 Int타입으로 저장한 것
     var priorityInt = 0
-    
     // subtitle을 모아놓은 리스트
     lazy var todoSubTItles: [String] = {
         var array: [String] = []
@@ -40,29 +38,20 @@ class AddTodoViewController: BaseViewController {
     
     override func loadView() {
         view = mainView
-        
     }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "새로운 할 일"
-        
+        navigationItem.title = "할 일 수정"
+        settingBarButton()
         // notificationCenter로 값 전달
-        NotificationCenter.default.addObserver(self, selector: #selector(addTodoNotification), name: Notification.Name("AddTodo"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeTodoNotification), name: Notification.Name("AddTodo"), object: nil)
 
         mainView.backgroundColor = Constants.Color.addViewBackgroundColor // 검은색보다 좀 더 연한 색
         configureTableVeiw()
     }
-
-    override func configureView() {
-        
-        settingBarButton()
-     
-    }
-    
     // 값이 들어오면?
     @objc
-    func addTodoNotification(notification: NSNotification) {
+    func changeTodoNotification(notification: NSNotification) {
         if let value = notification.userInfo?[TodoList.tag.todoListString] as? String {
             print(#function, "value")
             tagString = value
@@ -75,9 +64,13 @@ class AddTodoViewController: BaseViewController {
         
         mainView.tableView.reloadRows(at: [IndexPath(row: 2, section: 0), IndexPath(row: 3, section: 0)], with: .fade)
     }
-    
+
+    override func configureView() {
+        view.backgroundColor = Constants.Color.backgroundColor
+    }
     @objc
-    func addButtonClicked() { // 추가 버튼
+    func changeButtonClicked() {
+        // realm update
         guard let cell = mainView.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? AddTodoMemoTableViewCell else {
             return
         }
@@ -93,7 +86,7 @@ class AddTodoViewController: BaseViewController {
             // record에 들어갈 내용 구성
             let data = TodoTable(memoTitle: cell.titleTextField.text!, memo: cell.memoTextView.text!, deadline: deadlineDate, tag: tagString, priority: priorityInt)
             
-            // realm에 추가
+            // realm에 수정
             repository.createItem(data)
             
             // 할 일 숫자 갱신
@@ -101,29 +94,14 @@ class AddTodoViewController: BaseViewController {
             vc.viewWillAppear(true) // 안먹는듯..
             dismiss(animated: true)
         }
+        
     }
-    
-    @objc
-    func cancelButtonClicked() { // 취소 버튼
-        dismiss(animated: true)
-    }
-    
-}
-
-extension AddTodoViewController {
     func settingBarButton() {
-        let addButton = UIBarButtonItem(title: "추가", style: .plain, target: self, action: #selector(addButtonClicked))
-        
-        navigationItem.rightBarButtonItem = addButton
-        
-        let cancelButton = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(cancelButtonClicked))
-        
-        navigationItem.rightBarButtonItem = addButton
-        navigationItem.leftBarButtonItem = cancelButton
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "수정", style: .plain, target: self, action: #selector(changeButtonClicked))
     }
 }
 
-extension AddTodoViewController: UITableViewDelegate, UITableViewDataSource {
+extension TodoDetailViewController: UITableViewDelegate, UITableViewDataSource {
     
     func configureTableVeiw() {
         mainView.tableView.delegate = self
@@ -164,7 +142,7 @@ extension AddTodoViewController: UITableViewDelegate, UITableViewDataSource {
 //        let viewCon = todoCases[row].pushViewCon
 //        let vc = viewCon()
 //        vc.data = {
-//            
+//
 //        }
         
         switch todoCases[row] {
