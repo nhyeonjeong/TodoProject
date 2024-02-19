@@ -38,6 +38,25 @@ class ClassifyViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         list = repository.fetch()  // read
+        // 오늘자 메모
+        memoCountList[TodoClassify.today.rawValue] = list.filter({ data in
+            let start = Calendar.current.startOfDay(for: Date())
+            let end = Calendar.current.date(byAdding: .day, value: 1, to: start) ?? Date()
+            
+            if data.regDate >= start && data.regDate < end {
+                return true
+            } else { return false }
+        }).count
+        // 예정된 메모
+        memoCountList[TodoClassify.expected.rawValue] = list.filter({ data in
+            let today = Calendar.current.startOfDay(for: Date())
+            let tommorrow = Calendar.current.date(byAdding: .day, value: 1, to: today) ?? Date()
+            
+            if data.regDate >= tommorrow {
+                return true
+            } else { return false }
+        }).count
+        
         memoCountList[TodoClassify.entire.rawValue] = list.count // 전체 리스트 갯수 업데이트
         memoCountList[TodoClassify.completed.rawValue] = list.filter({ data in
             data.isComplete // 완료된 데이터의 수

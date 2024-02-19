@@ -10,6 +10,7 @@ import RealmSwift
 
 class TodoTable: Object {
     @Persisted(primaryKey: true) var id: ObjectId
+    @Persisted var regDate: Date
     @Persisted var memoTitle: String
     @Persisted var memo: String
     @Persisted var deadline: Date
@@ -21,6 +22,7 @@ class TodoTable: Object {
     convenience init(memoTitle: String, memo: String, deadline: Date, tag: String? = nil, priority: Int) {
         
         self.init()
+        self.regDate = Date()
         self.memoTitle = memoTitle
         self.memo = memo
         self.deadline = deadline
