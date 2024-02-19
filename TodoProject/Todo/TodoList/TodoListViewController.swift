@@ -92,7 +92,6 @@ extension TodoListViewController: UITableViewDelegate, UITableViewDataSource {
         mainView.tableView.dataSource = self
         mainView.tableView.rowHeight = UITableView.automaticDimension
         mainView.tableView.register(TodoListTableViewCell.self, forCellReuseIdentifier: TodoListTableViewCell.identifier)
-        mainView.tableView.allowsSelection = false // 선택되는 이벤트 안생기도록
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -125,6 +124,13 @@ extension TodoListViewController: UITableViewDelegate, UITableViewDataSource {
 //            
 //        }
 //    }
+    
+    // 선택하면 상세 뷰로 화면전환
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = AddTodoViewController() // 추가하는 뷰 재활용...
+        
+        navigationController?.pushViewController(vc, animated: true)
+    }
     
     // swipe했을 때 삭제
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
