@@ -14,6 +14,7 @@ class TodoListViewController: BaseViewController {
     
     var classifyText = ""
 
+    let repository = TodoTableRepository()
     var list: Results<TodoTable>!
     
     override func loadView() {
@@ -37,6 +38,15 @@ class TodoListViewController: BaseViewController {
         list = realm.objects(TodoTable.self).sorted(byKeyPath: "deadline", ascending: true)
         
         mainView.tableView.reloadData()
+    }
+    
+    // 체크박스 눌렀을 때 event
+    @objc
+    func checkboxClicked(_ sender: UIButton) { // 버튼에 달아준 addTarget은 sender 매개변수 가능!?
+        // realm update
+        repository.updateIsComplete(list[sender.tag])
+        // UI 업데이트
+        mainView.tableView.reloadRows(at: [IndexPath(row: sender.tag, section: 0)], with: .fade)
     }
 
     override func configureView() {
@@ -89,6 +99,8 @@ extension TodoListViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TodoListTableViewCell.identifier, for: indexPath) as? TodoListTableViewCell else {
             return UITableViewCell()
         }
+        cell.checkbox.tag = row // checkbox에 태그달아서 관리
+        cell.checkbox.addTarget(self, action: #selector(checkboxClicked), for: .touchUpInside)
         cell.configureCell(data: list[row])
         return cell
     }

@@ -31,7 +31,10 @@ class TodoListTableViewCell: UITableViewCell {
     }
     
     func configureCell(data: TodoTable) {
-        checkbox.tintColor = data.isComplete ? .red : .clear
+        // 완료된 할 일 여부에 따라서 색 변경
+        checkbox.backgroundColor = data.isComplete ? Constants.Color.pointColor : .clear
+        // 완료됐다면 타이틀의 색을 subtitle색으로
+        titleLabel.textColor = data.isComplete ? Constants.Color.subtitleColor : Constants.Color.titleColor
         memoLabel.text = data.memo
         
         if let text = data.tag { // nil이면 숨기기
@@ -113,9 +116,11 @@ class TodoListTableViewCell: UITableViewCell {
     func configureView() {
         stackView.axis = .vertical
         smallStackView.axis = .horizontal
-        checkbox.layer.cornerRadius = 10
         
-        titleLabel.textColor = Constants.Color.titleColor
+        checkbox.layer.cornerRadius = 10
+        checkbox.layer.borderWidth = 0.5
+        checkbox.layer.borderColor = UIColor.gray.cgColor
+        
         titleLabel.font = Constants.Font.normalTitle
         
         memoLabel.textColor = Constants.Color.subtitleColor
