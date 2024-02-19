@@ -94,6 +94,7 @@ extension TodoListViewController: UITableViewDelegate, UITableViewDataSource {
         mainView.tableView.register(TodoListTableViewCell.self, forCellReuseIdentifier: TodoListTableViewCell.identifier)
         mainView.tableView.allowsSelection = false // 선택되는 이벤트 안생기도록
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return list.count
     } 
@@ -107,5 +108,31 @@ extension TodoListViewController: UITableViewDelegate, UITableViewDataSource {
         cell.checkbox.addTarget(self, action: #selector(checkboxClicked), for: .touchUpInside)
         cell.configureCell(data: list[row])
         return cell
+    }
+    
+//    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+//        return true // 편집 허락
+//    }
+//    
+
+//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//        
+//        // indexPath
+//        if editingStyle == .delete {
+//            // 삭제버튼을 눌렀을 때 행동
+//            repository.deleteData(list[indexPath.row])
+//            tableView.reloadData()
+//            
+//        }
+//    }
+    
+    // swipe했을 때 삭제
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let delete = UIContextualAction(style: .normal, title: "삭제") { action, view, completionHandler in
+            self.repository.deleteData(self.list[indexPath.row])
+            tableView.reloadData()
+        }
+        delete.backgroundColor = Constants.Color.pointColor
+        return UISwipeActionsConfiguration(actions: [delete])
     }
 }
