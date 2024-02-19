@@ -23,4 +23,18 @@ extension UIViewController {
             print("file save error", error)
         }
     }
+    // 이미지 가져오기
+    func loadImageToDocument(filename: String) -> UIImage? {
+            
+        guard let documentDirectory = FileManager.default.urls(for: .documentDirectory,
+                                                                                                                         in: .userDomainMask).first else {return nil}
+        // 경로만들어주기
+        let fileUrl = documentDirectory.appendingPathComponent("\(filename).jpg")
+        
+        if FileManager.default.fileExists(atPath: fileUrl.path()) {
+            return UIImage(contentsOfFile: fileUrl.path())
+        } else {
+            return UIImage(systemName: "start.fill")
+        }
+    }
 }
