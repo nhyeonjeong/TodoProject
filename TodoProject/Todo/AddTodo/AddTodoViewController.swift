@@ -21,6 +21,8 @@ class AddTodoViewController: BaseViewController {
     var tagString: String?
     // Priority를 Int타입으로 저장한 것
     var priorityInt = 0
+    /// 선택된 이미지
+    var selectedImage = UIImage()
     
     // subtitle을 모아놓은 리스트
     lazy var todoSubTItles: [String] = {
@@ -145,6 +147,16 @@ extension AddTodoViewController: UITableViewDelegate, UITableViewDataSource {
             let titleList = todoCases[indexPath.row].tableViewCellTitle
             cell.configureCell(titleList: titleList)
             return cell
+        } else if indexPath.row == 4 { // 이미지
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: AddTodoImageTableViewCell.identifier, for: indexPath) as? AddTodoImageTableViewCell else {
+                
+                print(#function, "AddTodoImageTableViewCell 타입캐스팅 실패")
+                return UITableViewCell()
+            }
+            let titleList = todoCases[indexPath.row].tableViewCellTitle
+            cell.configureCell(titleList: titleList, selectedImage: selectedImage)
+            
+            return cell
         } else {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: AddTodoTableViewCell.identifier, for: indexPath) as? AddTodoTableViewCell else {
                 
@@ -178,23 +190,38 @@ extension AddTodoViewController: UITableViewDelegate, UITableViewDataSource {
                 tableView.reloadRows(at: [IndexPath(row: row, section: 0)], with: .fade)
             }
             navigationController?.pushViewController(vc, animated: true)
-
         case .tag:
             let vc = TagViewController()
-
             navigationController?.pushViewController(vc, animated: true)
-
         case .priority:
             let vc = PriorityViewController()
-
             navigationController?.pushViewController(vc, animated: true)
-
+        case .addImage:
+            // 갤러리 접근
+            let vc = UIImagePickerController()
+            vc.delegate = self // 프로토콜 채택한 뒤
+            present(vc, animated: true)
         default:
-            print("안넘어가요!")
+            print("안넘아가용")
         }
-        
     }
-    
+}
+
+extension AddTodoViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true)
+    }
+
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        print(#function)
+
+        if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            selectedImage = pickedImage
+            mainView.tableView.reloadRows(at: [IndexPath(item: 4, section: 0)], with: .fade)
+        }// 선택한 사진(여러 InfoKey가 있다)
+        
+        dismiss(animated: true)
+    }
 }
 
 

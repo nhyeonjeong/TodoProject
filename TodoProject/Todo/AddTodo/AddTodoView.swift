@@ -16,6 +16,7 @@ class AddTodoView: BaseView {
         
         view.register(AddTodoMemoTableViewCell.self, forCellReuseIdentifier: AddTodoMemoTableViewCell.identifier)
         view.register(AddTodoTableViewCell.self, forCellReuseIdentifier: AddTodoTableViewCell.identifier)
+        view.register(AddTodoImageTableViewCell.self, forCellReuseIdentifier: AddTodoImageTableViewCell.identifier)
         view.backgroundColor = Constants.Color.addViewBackgroundColor
         return view
     }()
