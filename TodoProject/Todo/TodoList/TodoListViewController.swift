@@ -14,7 +14,7 @@ class TodoListViewController: BaseViewController {
     
     var classifyText = ""
 
-    var data: Results<TodoTable>!
+    var list: Results<TodoTable>!
     
     override func loadView() {
         view = mainView
@@ -34,52 +34,29 @@ class TodoListViewController: BaseViewController {
         // realm위치 접근
         let realm = try! Realm()
         // 어떤 테이블? - 마감일순이 디폴트인걸로
-        data = realm.objects(TodoTable.self).sorted(byKeyPath: "deadline", ascending: true)
+        list = realm.objects(TodoTable.self).sorted(byKeyPath: "deadline", ascending: true)
         
         mainView.tableView.reloadData()
     }
-    
-    @objc func rightBarButtonClicked() {
-//        let realm = try! Realm()
-//        // pull down button
-//        let deadlineSort = UIAction(title: "마감일순으로 보기") { _ in
-//            self.data = realm.objects(TodoTable.self).sorted(byKeyPath: "deadline", ascending: true)
-//            
-//            self.mainView.tableView.reloadData()
-//        }
-//        let titleSort = UIAction(title: "제목 순으로 보기") { _ in
-//            self.data = realm.objects(TodoTable.self).sorted(byKeyPath: "title", ascending: true)
-//            
-//            self.mainView.tableView.reloadData()
-//        }
-//        let lowPrioritySort = UIAction(title: "우선순위 낮음만 보기") { _ in
-//            self.data = realm.objects(TodoTable.self).sorted(byKeyPath: "priority", ascending: false)
-//            
-//            self.mainView.tableView.reloadData()
-//        }
-//        
-//        let buttonMenu = UIMenu(children: [deadlineSort, titleSort, lowPrioritySort])
-        print(#function)
-    }
-    
+
     override func configureView() {
-        let rightbarButton = UIBarButtonItem(image: Constants.Image.eclipes, style: .plain, target: self, action: #selector(rightBarButtonClicked))
+        let rightbarButton = UIBarButtonItem(image: Constants.Image.eclipes, style: .plain, target: self, action: nil)
 
         
         let realm = try! Realm()
         // pull down button
         let deadlineSort = UIAction(title: "마감일순으로 보기") { _ in
-            self.data = realm.objects(TodoTable.self).sorted(byKeyPath: "deadline", ascending: true)
+            self.list = realm.objects(TodoTable.self).sorted(byKeyPath: "deadline", ascending: true)
             
             self.mainView.tableView.reloadData()
         }
         let titleSort = UIAction(title: "제목 순으로 보기") { _ in
-            self.data = realm.objects(TodoTable.self).sorted(byKeyPath: "memoTitle", ascending: true)
+            self.list = realm.objects(TodoTable.self).sorted(byKeyPath: "memoTitle", ascending: true)
             
             self.mainView.tableView.reloadData()
         }
         let lowPrioritySort = UIAction(title: "우선순위 낮음만 보기") { _ in
-            self.data = realm.objects(TodoTable.self).where{
+            self.list = realm.objects(TodoTable.self).where{
                 $0.priority == 3
             }
             self.mainView.tableView.reloadData()
@@ -96,13 +73,14 @@ class TodoListViewController: BaseViewController {
 extension TodoListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func configureTableView() {
-        mainView.tableView.rowHeight = 50
+//        mainView.tableView.rowHeight = 50
         mainView.tableView.delegate = self
         mainView.tableView.dataSource = self
+        mainView.tableView.rowHeight = UITableView.automaticDimension
         mainView.tableView.register(TodoListTableViewCell.self, forCellReuseIdentifier: TodoListTableViewCell.identifier)
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
+        return list.count
     } 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -110,7 +88,7 @@ extension TodoListViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TodoListTableViewCell.identifier, for: indexPath) as? TodoListTableViewCell else {
             return UITableViewCell()
         }
-        cell.configureCell(title: data[row].memoTitle, deadlinePriorityString: data[row].deadlinePriority)
+        cell.configureCell(data: list[row])
         return cell
     }
 }

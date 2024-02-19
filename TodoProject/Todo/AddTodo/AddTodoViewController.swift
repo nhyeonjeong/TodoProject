@@ -7,8 +7,10 @@
 
 import UIKit
 import RealmSwift
+import Toast
 
 class AddTodoViewController: BaseViewController {
+    let repository = TodoTableRepository()
     
     let mainView = AddTodoView()
     
@@ -16,7 +18,7 @@ class AddTodoViewController: BaseViewController {
     // 마감일을 Date타입으로 받아온 것
     var deadlineDate = Date()
     // tag 따로 저장
-    var tagString = ""
+    var tagString: String? = nil
     // Priority를 Int타입으로 저장한 것
     var priorityInt = 0
     
@@ -76,23 +78,26 @@ class AddTodoViewController: BaseViewController {
     
     @objc
     func addButtonClicked() { // 추가 버튼
-        // realm create
-        let realm = try! Realm()
-        print(realm.configuration.fileURL) // 램파일의 위치
-        
         guard let cell = mainView.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? AddTodoMemoTableViewCell else {
             return
         }
-        // record에 들어갈 내용 구성
-        let data = TodoTable(memoTitle: cell.titleTextField.text!, memo: cell.memoTextView.text!, deadline: deadlineDate, tag: tagString, priority: priorityInt)
         
-        // realm에 추가
-        try! realm.write {
-            realm.add(data)
-            print("create 성공!")
+        // 만약 제목이 비어있으면 토스트
+        if cell.titleTextField.text == "" {
+            view.makeToast("제목을 입력해주세요", duration: 1.0, position: .top)
+        } else {
+            let tagText =
+            // record에 들어갈 내용 구성
+            let data = TodoTable(memoTitle: cell.titleTextField.text!, memo: cell.memoTextView.text!, deadline: deadlineDate, tag: tagString, priority: priorityInt)
+            
+            // realm에 추가
+            repository.createItem(data)
+            
+            // 할 일 숫자 갱신
+            let vc = ClassifyViewController()
+            vc.viewWillAppear(true) // 안먹는듯..
+            dismiss(animated: true)
         }
-        dismiss(animated: true)
-
     }
     
     @objc
@@ -188,3 +193,5 @@ extension AddTodoViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
 }
+
+
