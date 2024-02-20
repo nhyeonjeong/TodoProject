@@ -17,7 +17,7 @@ class TodoDetailViewController: BaseViewController {
     let mainView = AddTodoView()
     
     let todoCases = TodoList.allCases
-    
+    /*
     // 변경할 데이터
     // 마감일을 Date타입으로 받아온 것
     var deadlineDate = Date()
@@ -25,15 +25,28 @@ class TodoDetailViewController: BaseViewController {
     var tagString: String?
     // Priority를 Int타입으로 저장한 것
     var priorityInt = 0
-     
+     */
     // 선택한 이미지
-    var selectedImage: UIImage?
+    var selectedImage = UIImage()
     
     // subtitle을 모아놓은 리스트
     lazy var todoSubTItles: [String] = {
         var array: [String] = []
-        todoCases.forEach { _ in
-            array.append("")
+        todoCases.forEach { todoCase in
+            switch todoCase {
+            case TodoList.deadline:
+                array.append(format.string(from: todoData.deadline))
+            case TodoList.tag:
+                if let tag = todoData.tag {
+                    array.append(tag)
+                } else {
+                    array.append("")
+                }
+            case TodoList.priority:
+                array.append("\(todoData.priority)순위")
+            default:
+                array.append("")
+            }
         }
         return array
     }()
@@ -66,10 +79,11 @@ class TodoDetailViewController: BaseViewController {
 //            tagString = value
 //            todoSubTItles[2] = value
             
+            
         }
         if let value = notification.userInfo?[TodoList.priority.todoListString] as? Int {
-            priorityInt = value
-            todoSubTItles[3] = "\(value)순위"
+//            priorityInt = value
+//            todoSubTItles[3] = "\(value)순위"
         }
         
         mainView.tableView.reloadRows(at: [IndexPath(row: 2, section: 0), IndexPath(row: 3, section: 0)], with: .fade)
@@ -77,6 +91,7 @@ class TodoDetailViewController: BaseViewController {
 
     override func configureView() {
         view.backgroundColor = Constants.Color.backgroundColor
+
     }
     // 수정후 완료
     @objc
@@ -90,6 +105,7 @@ class TodoDetailViewController: BaseViewController {
         if cell.titleTextField.text == "" {
             view.makeToast("제목을 입력해주세요", duration: 1.0, position: .top)
         } else {
+            /*
             // 만약 tagString이 비어있다면 nil로 저장되도록
             if tagString == "" {
                 tagString = nil
@@ -104,6 +120,7 @@ class TodoDetailViewController: BaseViewController {
             let vc = ClassifyViewController()
             vc.viewWillAppear(true) // 안먹는듯..
             dismiss(animated: true)
+             */
         }
         
     }
@@ -131,8 +148,18 @@ extension TodoDetailViewController: UITableViewDelegate, UITableViewDataSource {
                 print(#function, "AddTodoMemoTableViewCell 타입캐스팅 실패")
                 return UITableViewCell()
             }
+
+            cell.configureCellData(title: todoData.memoTitle, memo: todoData.memo)
+            return cell
+        } else if indexPath.row == 4 { // 이미지
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: AddTodoImageTableViewCell.identifier, for: indexPath) as? AddTodoImageTableViewCell else {
+                
+                print(#function, "AddTodoImageTableViewCell 타입캐스팅 실패")
+                return UITableViewCell()
+            }
             let titleList = todoCases[indexPath.row].tableViewCellTitle
-            cell.configureCell(titleList: titleList)
+            cell.configureCell(titleList: titleList, selectedImage: selectedImage)
+            
             return cell
         } else {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: AddTodoTableViewCell.identifier, for: indexPath) as? AddTodoTableViewCell else {
@@ -160,11 +187,13 @@ extension TodoDetailViewController: UITableViewDelegate, UITableViewDataSource {
         case .deadline:
             let vc = DateViewController()
             vc.date = { date in
+                /*
                 self.deadlineDate = date
                 let result = self.format.string(from: date)
 
                 self.todoSubTItles[row] = result
                 tableView.reloadRows(at: [IndexPath(row: row, section: 0)], with: .fade)
+                 */
             }
             navigationController?.pushViewController(vc, animated: true)
 
