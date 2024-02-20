@@ -71,9 +71,16 @@ class ClassifyViewController: BaseViewController {
     
     @objc
     func addTodoButtonClicked() {
-        let vc = UINavigationController(rootViewController: AddTodoViewController())
-        present(vc, animated: true)
-        print(#function)
+        let vc = AddTodoViewController()
+        let nav = UINavigationController(rootViewController: vc)
+        // 전체 메모 갯수 갱신
+        vc.memoCount = { value in
+            
+            self.memoCountList[TodoClassify.entire.rawValue] = value
+            self.mainView.collectionView.reloadData()
+            
+        }
+        present(nav, animated: true)
     }
     
     @objc

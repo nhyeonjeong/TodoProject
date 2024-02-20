@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>top-level-items</key>
+	<array>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>0</string>
+					<key>EndingLineNumber</key>
+					<string>90</string>
+					<key>StartingColumnNumber</key>
+					<string>0</string>
+					<key>StartingLineNumber</key>
+					<string>89</string>
+					<key>Timestamp</key>
+					<string>730129829.743889</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>TodoProject/Todo/AddTodo/AddTodoViewController.swift</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string>//        guard let cell = mainView.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? AddTodoMemoTableViewCell else {
+</string>
+				<key>leading</key>
+				<string>        // 이게 맞나...ㅋㄹㅋㅎ 값을 다른 변수처럼 빼줄 수 없었우무
+        // cellForRowAt 밖에서 cell을 가져오면 좋지 않음
+</string>
+				<key>trailing</key>
+				<string>//            return
+//        }
+        
+</string>
+			</dict>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
+	</array>
+</dict>
+</plist>

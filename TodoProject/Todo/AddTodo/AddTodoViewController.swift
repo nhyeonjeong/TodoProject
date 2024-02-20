@@ -13,8 +13,12 @@ class AddTodoViewController: BaseViewController {
     let repository = TodoTableRepository()
     
     let mainView = AddTodoView()
+    // classifyVC으로 넘겨줄 memo갯수
+    var memoCount: ((Int) -> Void)?
     
     let todoCases = TodoList.allCases
+    var memoTitle: String = ""
+    var memo: String = ""
     // 마감일을 Date타입으로 받아온 것
     var deadlineDate = Date()
     // tag 따로 저장
@@ -78,14 +82,18 @@ class AddTodoViewController: BaseViewController {
         mainView.tableView.reloadRows(at: [IndexPath(row: 2, section: 0), IndexPath(row: 3, section: 0)], with: .fade)
     }
     
+    
     @objc
     func addButtonClicked() { // 추가 버튼
-        guard let cell = mainView.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? AddTodoMemoTableViewCell else {
-            return
-        }
+        // 이게 맞나...ㅋㄹㅋㅎ 값을 다른 변수처럼 빼줄 수 없었우무
+        // cellForRowAt 밖에서 cell을 가져오면 좋지 않음
+//        guard let cell = mainView.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? AddTodoMemoTableViewCell else {
+//            return
+//        }
+        
         
         // 만약 제목이 비어있으면 토스트
-        if cell.titleTextField.text == "" {
+        if memoTitle == "" {
             view.makeToast("제목을 입력해주세요", duration: 1.0, position: .top)
         } else {
             // 만약 tagString이 비어있다면 nil로 저장되도록
@@ -93,15 +101,15 @@ class AddTodoViewController: BaseViewController {
                 tagString = nil
             }
             // record에 들어갈 내용 구성
-            let data = TodoTable(memoTitle: cell.titleTextField.text!, memo: cell.memoTextView.text!, deadline: deadlineDate, tag: tagString, priority: priorityInt)
+            let data = TodoTable(memoTitle: memoTitle, memo: memo, deadline: deadlineDate, tag: tagString, priority: priorityInt)
             
             // realm에 추가
             repository.createItem(data)
             // 이미지 document아래에 저장
             saveImageToDocument(image: selectedImage, filename: "\(data.id)")
             // 할 일 숫자 갱신
-            let vc = ClassifyViewController()
-            vc.viewWillAppear(true) // 안먹는듯..
+            guard let memoCount else { return }
+            memoCount(repository.fetch().count)
             dismiss(animated: true)
         }
     }
@@ -145,6 +153,10 @@ extension AddTodoViewController: UITableViewDelegate, UITableViewDataSource {
                 print(#function, "AddTodoMemoTableViewCell 타입캐스팅 실패")
                 return UITableViewCell()
             }
+            
+            cell.memoTextView.delegate = self
+            cell.titleTextField.delegate = self
+            
             let titleList = todoCases[indexPath.row].tableViewCellTitle
             cell.configureCell(titleList: titleList)
             return cell
@@ -207,7 +219,15 @@ extension AddTodoViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
 }
-
+extension AddTodoViewController: UITextFieldDelegate, UITextViewDelegate {
+    // textView, textfield 실시간으로 string바뀔 떄마다
+    func textViewDidChange(_ textView: UITextView) {
+        memo = textView.text!
+    }
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        memoTitle = textField.text!
+    }
+}
 extension AddTodoViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true)

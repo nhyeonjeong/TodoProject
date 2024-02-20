@@ -36,6 +36,12 @@ class AddTodoMemoTableViewCell: UITableViewCell {
         titleTextField.placeholder = titleList[0]
         memoTextView.text = titleList[1] // 마치 placeholder인것처럼
     }
+    // 수정할 때 데이터를 가져와서 보여주는 함수 (TodoDetailVC에서만 사용된다.)
+    func configureCellData(title: String, memo: String) {
+        print("afdsfasdf")
+        titleTextField.text = title
+        memoTextView.text = memo
+    }
 }
 
 extension AddTodoMemoTableViewCell {
