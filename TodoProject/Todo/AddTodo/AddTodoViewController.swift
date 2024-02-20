@@ -13,6 +13,8 @@ class AddTodoViewController: BaseViewController {
     let repository = TodoTableRepository()
     
     let mainView = AddTodoView()
+    // classifyVC으로 넘겨줄 memo갯수
+    var memoCount: ((Int) -> Void)?
     
     let todoCases = TodoList.allCases
     var memoTitle: String = ""
@@ -106,7 +108,8 @@ class AddTodoViewController: BaseViewController {
             // 이미지 document아래에 저장
             saveImageToDocument(image: selectedImage, filename: "\(data.id)")
             // 할 일 숫자 갱신
-            let vc = ClassifyViewController()
+            guard let memoCount else { return }
+            memoCount(repository.fetch().count)
             dismiss(animated: true)
         }
     }
