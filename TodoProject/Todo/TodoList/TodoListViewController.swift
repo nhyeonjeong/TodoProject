@@ -133,11 +133,11 @@ extension TodoListViewController: UITableViewDelegate, UITableViewDataSource {
     
     // 선택하면 상세 뷰로 화면전환
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = AddTodoViewController() // 추가하는 뷰 재활용...
+        let vc = TodoDetailViewController() // 추가하는 뷰 재활용...
         // 이미지 가져오기
         let row = indexPath.row
         if let image = loadImageToDocument(filename: "\(list[row].id)") {
-            vc.selectedImage = image
+//            vc.selectedImage = image
             vc.mainView.tableView.reloadData()
         }
         navigationController?.pushViewController(vc, animated: true)
