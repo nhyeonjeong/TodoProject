@@ -9,17 +9,26 @@ import UIKit
 
 class TodoDetailViewController: BaseViewController {
     // 메모타이틀, 메모, 마감일, 태그 수정, 우선순위...~...
+    // 그냥 뭉텅이로 가져와..
+    var todoData: TodoTable = TodoTable(memoTitle: "", memo: "", deadline: Date(), priority: 0)
+    
     let repository = TodoTableRepository()
     // AddTodoView재사용
     let mainView = AddTodoView()
     
     let todoCases = TodoList.allCases
+    
+    // 변경할 데이터
     // 마감일을 Date타입으로 받아온 것
     var deadlineDate = Date()
     // tag 따로 저장
     var tagString: String?
     // Priority를 Int타입으로 저장한 것
     var priorityInt = 0
+     
+    // 선택한 이미지
+    var selectedImage: UIImage?
+    
     // subtitle을 모아놓은 리스트
     lazy var todoSubTItles: [String] = {
         var array: [String] = []
@@ -54,8 +63,9 @@ class TodoDetailViewController: BaseViewController {
     func changeTodoNotification(notification: NSNotification) {
         if let value = notification.userInfo?[TodoList.tag.todoListString] as? String {
             print(#function, "value")
-            tagString = value
-            todoSubTItles[2] = value
+//            tagString = value
+//            todoSubTItles[2] = value
+            
         }
         if let value = notification.userInfo?[TodoList.priority.todoListString] as? Int {
             priorityInt = value
@@ -68,6 +78,7 @@ class TodoDetailViewController: BaseViewController {
     override func configureView() {
         view.backgroundColor = Constants.Color.backgroundColor
     }
+    // 수정후 완료
     @objc
     func changeButtonClicked() {
         // realm update

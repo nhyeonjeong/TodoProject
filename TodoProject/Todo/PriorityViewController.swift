@@ -13,9 +13,9 @@ class PriorityViewController: BaseViewController {
 
     let segment: UISegmentedControl = {
         let view = UISegmentedControl()
-        view.insertSegment(withTitle: "1", at: 0, animated: true)
-        view.insertSegment(withTitle: "2", at: 1, animated: true)
-        view.insertSegment(withTitle: "3", at: 2, animated: true)
+        view.insertSegment(withTitle: "1순위", at: 0, animated: true)
+        view.insertSegment(withTitle: "2순위", at: 1, animated: true)
+        view.insertSegment(withTitle: "3순위", at: 2, animated: true)
         return view
     }()
     

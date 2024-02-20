@@ -137,8 +137,10 @@ extension TodoListViewController: UITableViewDelegate, UITableViewDataSource {
         // 이미지 가져오기
         let row = indexPath.row
         if let image = loadImageToDocument(filename: "\(list[row].id)") {
-//            vc.selectedImage = image
-            vc.mainView.tableView.reloadData()
+            vc.selectedImage = image
+            vc.todoData = list[row]
+//            vc.mainView.tableView.reloadData() // 왜 리로드?!!
+            
         }
         navigationController?.pushViewController(vc, animated: true)
     }
