@@ -28,6 +28,19 @@ final class ListTableRepository {
         
     }
     
+    // to many relationship
+    func createdTodo(_ item: TodoTable, listIdx: Int) {
+        let data = realm.objects(ListTable.self)
+        do {
+            try realm.write {
+                // append할 수 있다.
+                data[listIdx].todo.append(item)
+            }
+        } catch {
+            print("error")
+        }
+    }
+    
     // read All
     func fetch() -> Results<ListTable> {
 

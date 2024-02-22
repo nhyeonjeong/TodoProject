@@ -10,7 +10,7 @@ import RealmSwift
 
 class ClassifyViewController: BaseViewController {
     
-    var selectedList = ListTable(listTitle: "", colorIdx: 0) // 디폴트는 제일 처음 목록 선택된 상태
+    var selectedListIdx = 0 // 디폴트는 제일 처음 목록 선택된 상태
     
     let todoRepository = TodoTableRepository()
     let listRepository = ListTableRepository()
@@ -88,7 +88,7 @@ class ClassifyViewController: BaseViewController {
             self.mainView.tableView.reloadData()
             
         }
-        vc.selectedList = selectedList
+        vc.selectedListIdx = selectedListIdx
         present(nav, animated: true)
     }
     
@@ -176,11 +176,9 @@ extension ClassifyViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         addTodoButton.isHidden = false
         
-        selectedList = list[indexPath.row]
+        selectedListIdx = indexPath.row
         
     }
-    
-    
 }
 
 extension ClassifyViewController: UICollectionViewDelegate, UICollectionViewDataSource {
