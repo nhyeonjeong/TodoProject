@@ -11,12 +11,15 @@ import Toast
 
 class AddTodoViewController: BaseViewController {
     let repository = TodoTableRepository()
+    let listRepository = ListTableRepository()
+    
+    var list: Results<ListTable>!
     
     let mainView = AddTodoView()
     // classifyVC으로 넘겨줄 memo갯수
     var memoCount: ((Int) -> Void)?
     
-    let todoCases = TodoList.allCases
+    var todoCases = TodoList.allCases
     var memoTitle: String = ""
     var memo: String = ""
     // 마감일을 Date타입으로 받아온 것
@@ -27,7 +30,8 @@ class AddTodoViewController: BaseViewController {
     var priorityInt = 0
     /// 선택된 이미지
     var selectedImage = UIImage()
-    
+    // 선택된 목록
+    var selectedListIdx: Int?
     // subtitle을 모아놓은 리스트
     lazy var todoSubTItles: [String] = {
         var array: [String] = []
@@ -52,6 +56,11 @@ class AddTodoViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "새로운 할 일"
+        list = listRepository.fetch()
+        
+        if let idx = selectedListIdx {
+            todoSubTItles[5] = list[idx].listTitle
+        }
         
         // notificationCenter로 값 전달
         NotificationCenter.default.addObserver(self, selector: #selector(addTodoNotification), name: Notification.Name("AddTodo"), object: nil)
@@ -104,7 +113,12 @@ class AddTodoViewController: BaseViewController {
             let data = TodoTable(memoTitle: memoTitle, memo: memo, deadline: deadlineDate, tag: tagString, priority: priorityInt)
             
             // realm에 추가
-            repository.createItem(data)
+            // 만약 목록 선택이 안 된 상태라면 추가안되게 하기
+            guard let idx = selectedListIdx else {
+                view.makeToast("목록을 선택하세요", duration: 1.0, position: .top)
+                return
+            }
+            listRepository.createdTodo(data, listIdx: idx)
             // 이미지 document아래에 저장
             saveImageToDocument(image: selectedImage, filename: "\(data.id)")
             // 할 일 숫자 갱신
@@ -214,6 +228,14 @@ extension AddTodoViewController: UITableViewDelegate, UITableViewDataSource {
             let vc = UIImagePickerController()
             vc.delegate = self // 프로토콜 채택한 뒤
             present(vc, animated: true)
+        case .list:
+            let vc = SelectListViewController()
+            vc.selectedListIdx = { value in
+                self.selectedListIdx = value
+                self.todoSubTItles[indexPath.row] = self.list[value].listTitle
+                tableView.reloadRows(at: [IndexPath(row: row, section: 0)], with: .fade)
+            }
+            navigationController?.pushViewController(vc, animated: true)
         default:
             print("안넘아가용")
         }

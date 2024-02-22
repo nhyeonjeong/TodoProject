@@ -18,11 +18,16 @@ class ClassifyView: BaseView {
         return view
     }()
     
-    lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
+    // 전체를 감싸는 Table
+    let tableView: UITableView = {
+        let view = UITableView()
+        view.rowHeight = UITableView.automaticDimension
+        return view
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        collectionView.backgroundColor = .clear
+        tableView.backgroundColor = .clear
         self.backgroundColor = .clear
     }
     
@@ -36,33 +41,17 @@ class ClassifyView: BaseView {
     
     override func configureHierarchy() {
         addSubview(bigLabel)
-        addSubview(collectionView)
+        addSubview(tableView)
     }
     override func configureConstraints() {
         bigLabel.snp.makeConstraints { make in
             make.top.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(15)
             make.height.equalTo(30)
         }
-        collectionView.snp.makeConstraints { make in
+        tableView.snp.makeConstraints { make in
             make.top.equalTo(bigLabel.snp.bottom).offset(10)
             make.horizontalEdges.bottom.equalTo(safeAreaLayoutGuide)
         }
     }
 }
 
-extension ClassifyView {
-    
-    func collectionViewLayout() -> UICollectionViewLayout {
-        let inset: CGFloat = 15
-        let screenwidth = UIScreen.main.bounds.width
-        let cellWidth = (screenwidth - inset*3) / 2
-        let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: cellWidth, height: 100) // 없으면 안됨
-        layout.minimumLineSpacing = inset
-        layout.minimumInteritemSpacing = inset
-        layout.sectionInset = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
-        
-        layout.scrollDirection = .vertical // 스크롤 방향도 FlowLayout에 속한다 -> contentMode때문에 Fill로
-        return layout
-    }
-}
