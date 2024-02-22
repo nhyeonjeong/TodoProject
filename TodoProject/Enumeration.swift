@@ -43,6 +43,7 @@ enum TodoList: String, CaseIterable {
     case tag = "태그"
     case priority = "우선 순위"
     case addImage = "이미지 추가"
+    case list = "목록 뷰"
     
     var todoListString: String {
         String(describing: self)

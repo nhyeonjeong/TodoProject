@@ -12,13 +12,13 @@
 					<key>EndingColumnNumber</key>
 					<string>0</string>
 					<key>EndingLineNumber</key>
-					<string>90</string>
+					<string>93</string>
 					<key>StartingColumnNumber</key>
 					<string>0</string>
 					<key>StartingLineNumber</key>
-					<string>89</string>
+					<string>92</string>
 					<key>Timestamp</key>
-					<string>730129829.743889</string>
+					<string>730320197.400744</string>
 				</dict>
 				<key>rebasable-url</key>
 				<dict>
@@ -55,15 +55,15 @@
 				<key>location-parameters</key>
 				<dict>
 					<key>EndingColumnNumber</key>
-					<string>63</string>
+					<string>0</string>
 					<key>EndingLineNumber</key>
-					<string>94</string>
+					<string>98</string>
 					<key>StartingColumnNumber</key>
-					<string>54</string>
+					<string>0</string>
 					<key>StartingLineNumber</key>
-					<string>94</string>
+					<string>97</string>
 					<key>Timestamp</key>
-					<string>730316949.460775</string>
+					<string>730319561.912645</string>
 				</dict>
 				<key>rebasable-url</key>
 				<dict>
@@ -79,15 +79,16 @@
 			<key>text-context</key>
 			<dict>
 				<key>focused</key>
-				<string> fullscre</string>
+				<string>//        vc.modalPresentationStyle = .fullScreen // 왜 fullscreen으로 탭제스쳐도 안먹고 배경색도 이상해지는지?
+</string>
 				<key>leading</key>
 				<string>    func addListButtonClicked() {
         let vc = AddListViewController()
-//        vc.modalPresentationStyle = .fullScreen // 왜</string>
+</string>
 				<key>trailing</key>
-				<string>en으로 탭제스쳐도 안먹고 배경색도 이상해지는지?
-        vc.tableReload = {
+				<string>        vc.tableReload = {
             self.list = self.listRepository.fetch()
+            self.mainView.tableView.reloadData()
 </string>
 			</dict>
 			<key>type</key>

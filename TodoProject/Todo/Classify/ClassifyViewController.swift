@@ -10,6 +10,8 @@ import RealmSwift
 
 class ClassifyViewController: BaseViewController {
     
+    var selectedList = ListTable(listTitle: "", colorIdx: 0) // 디폴트는 제일 처음 목록 선택된 상태
+    
     let todoRepository = TodoTableRepository()
     let listRepository = ListTableRepository()
     
@@ -36,7 +38,7 @@ class ClassifyViewController: BaseViewController {
         mainView.backgroundColor = Constants.Color.backgroundColor
 
         configureTableView()
-//        configureCollectionView()
+        addTodoButton.isHidden = true // 목록을 선택해야 보여진다
 
     }
     
@@ -86,6 +88,7 @@ class ClassifyViewController: BaseViewController {
             self.mainView.tableView.reloadData()
             
         }
+        vc.selectedList = selectedList
         present(nav, animated: true)
     }
     
@@ -167,6 +170,14 @@ extension ClassifyViewController: UITableViewDelegate, UITableViewDataSource {
             cell.configureCell(list[indexPath.row])
             return cell
         }
+    }
+    
+    // 선택되면 목록추가 버튼 나오도록(선택된 상태가 아직 아니라면 숨기기)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        addTodoButton.isHidden = false
+        
+        selectedList = list[indexPath.row]
+        
     }
     
     

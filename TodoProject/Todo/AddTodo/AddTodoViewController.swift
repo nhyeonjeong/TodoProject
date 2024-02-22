@@ -16,7 +16,7 @@ class AddTodoViewController: BaseViewController {
     // classifyVC으로 넘겨줄 memo갯수
     var memoCount: ((Int) -> Void)?
     
-    let todoCases = TodoList.allCases
+    var todoCases = TodoList.allCases
     var memoTitle: String = ""
     var memo: String = ""
     // 마감일을 Date타입으로 받아온 것
@@ -27,7 +27,8 @@ class AddTodoViewController: BaseViewController {
     var priorityInt = 0
     /// 선택된 이미지
     var selectedImage = UIImage()
-    
+    // 선택된 목록
+    var selectedList = ListTable(listTitle: "", colorIdx: 0)
     // subtitle을 모아놓은 리스트
     lazy var todoSubTItles: [String] = {
         var array: [String] = []
@@ -52,6 +53,8 @@ class AddTodoViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "새로운 할 일"
+        
+        todoSubTItles[5] = selectedList.listTitle
         
         // notificationCenter로 값 전달
         NotificationCenter.default.addObserver(self, selector: #selector(addTodoNotification), name: Notification.Name("AddTodo"), object: nil)
