@@ -31,7 +31,7 @@ class AddTodoViewController: BaseViewController {
     /// 선택된 이미지
     var selectedImage = UIImage()
     // 선택된 목록
-    var selectedListIdx = 0
+    var selectedListIdx: Int?
     // subtitle을 모아놓은 리스트
     lazy var todoSubTItles: [String] = {
         var array: [String] = []
@@ -57,7 +57,10 @@ class AddTodoViewController: BaseViewController {
         super.viewDidLoad()
         navigationItem.title = "새로운 할 일"
         list = listRepository.fetch()
-        todoSubTItles[5] = list[selectedListIdx].listTitle
+        
+        if let idx = selectedListIdx {
+            todoSubTItles[5] = list[idx].listTitle
+        }
         
         // notificationCenter로 값 전달
         NotificationCenter.default.addObserver(self, selector: #selector(addTodoNotification), name: Notification.Name("AddTodo"), object: nil)
@@ -110,7 +113,12 @@ class AddTodoViewController: BaseViewController {
             let data = TodoTable(memoTitle: memoTitle, memo: memo, deadline: deadlineDate, tag: tagString, priority: priorityInt)
             
             // realm에 추가
-            listRepository.createdTodo(data, listIdx: selectedListIdx)
+            // 만약 목록 선택이 안 된 상태라면 추가안되게 하기
+            guard let idx = selectedListIdx else {
+                view.makeToast("목록을 선택하세요", duration: 1.0, position: .top)
+                return
+            }
+            listRepository.createdTodo(data, listIdx: idx)
             // 이미지 document아래에 저장
             saveImageToDocument(image: selectedImage, filename: "\(data.id)")
             // 할 일 숫자 갱신

@@ -48,6 +48,7 @@
 		8BE362882B87AEDB00EFC62F /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE362872B87AEDB00EFC62F /* ListTableViewCell.swift */; };
 		8BE3628A2B87B47000EFC62F /* ClassifyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE362892B87B47000EFC62F /* ClassifyTableViewCell.swift */; };
 		8BE3628C2B87CDFE00EFC62F /* SelectListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE3628B2B87CDFE00EFC62F /* SelectListViewController.swift */; };
+		8BE3628E2B87E02800EFC62F /* ListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE3628D2B87E02800EFC62F /* ListDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -90,6 +91,7 @@
 		8BE362872B87AEDB00EFC62F /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
 		8BE362892B87B47000EFC62F /* ClassifyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassifyTableViewCell.swift; sourceTree = "<group>"; };
 		8BE3628B2B87CDFE00EFC62F /* SelectListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectListViewController.swift; sourceTree = "<group>"; };
+		8BE3628D2B87E02800EFC62F /* ListDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -250,6 +252,7 @@
 			isa = PBXGroup;
 			children = (
 				8B55B9442B851244003649F2 /* AddListViewController.swift */,
+				8BE3628D2B87E02800EFC62F /* ListDetailViewController.swift */,
 			);
 			path = AddList;
 			sourceTree = "<group>";
@@ -391,6 +394,7 @@
 				8B2A67E62B7CFCF00014F6E1 /* BaseViewController.swift in Sources */,
 				8B2A67DF2B7CFC610014F6E1 /* DateViewController.swift in Sources */,
 				8B2A67EA2B7CFD580014F6E1 /* Enumeration.swift in Sources */,
+				8BE3628E2B87E02800EFC62F /* ListDetailViewController.swift in Sources */,
 				8B0E70002B824ACF008D9411 /* TodoTableRepository.swift in Sources */,
 				8BBA88042B7D7F6800CC2143 /* ClassifyView.swift in Sources */,
 				8B2A67C82B7CFA0F0014F6E1 /* SceneDelegate.swift in Sources */,

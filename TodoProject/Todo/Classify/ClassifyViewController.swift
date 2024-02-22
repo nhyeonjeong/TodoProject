@@ -38,7 +38,8 @@ class ClassifyViewController: BaseViewController {
         mainView.backgroundColor = Constants.Color.backgroundColor
 
         configureTableView()
-        addTodoButton.isHidden = true // 목록을 선택해야 보여진다
+//        addTodoButton.isHidden = true // 목록을 선택해야 보여진다
+        
 
     }
     
@@ -88,7 +89,6 @@ class ClassifyViewController: BaseViewController {
             self.mainView.tableView.reloadData()
             
         }
-        vc.selectedListIdx = selectedListIdx
         present(nav, animated: true)
     }
     
@@ -174,9 +174,11 @@ extension ClassifyViewController: UITableViewDelegate, UITableViewDataSource {
     
     // 선택되면 목록추가 버튼 나오도록(선택된 상태가 아직 아니라면 숨기기)
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        addTodoButton.isHidden = false
         
         selectedListIdx = indexPath.row
+        let vc = ListDetailViewController()
+        vc.list = list[indexPath.row].todo
+        navigationController?.pushViewController(vc, animated: true)
         
     }
 }

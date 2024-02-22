@@ -12,13 +12,13 @@
 					<key>EndingColumnNumber</key>
 					<string>0</string>
 					<key>EndingLineNumber</key>
-					<string>96</string>
+					<string>99</string>
 					<key>StartingColumnNumber</key>
 					<string>0</string>
 					<key>StartingLineNumber</key>
-					<string>95</string>
+					<string>98</string>
 					<key>Timestamp</key>
-					<string>730322792.951131</string>
+					<string>730323461.0345449</string>
 				</dict>
 				<key>rebasable-url</key>
 				<dict>
@@ -63,7 +63,7 @@
 					<key>StartingLineNumber</key>
 					<string>97</string>
 					<key>Timestamp</key>
-					<string>730319561.912645</string>
+					<string>730323694.135221</string>
 				</dict>
 				<key>rebasable-url</key>
 				<dict>
@@ -89,6 +89,94 @@
 				<string>        vc.tableReload = {
             self.list = self.listRepository.fetch()
             self.mainView.tableView.reloadData()
+</string>
+			</dict>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>50</string>
+					<key>EndingLineNumber</key>
+					<string>12</string>
+					<key>StartingColumnNumber</key>
+					<string>41</string>
+					<key>StartingLineNumber</key>
+					<string>12</string>
+					<key>Timestamp</key>
+					<string>730325554.103125</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>TodoProject/Todo/AddList/ListDetailViewController.swift</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string>TodoTable</string>
+				<key>leading</key>
+				<string>class ListDetailViewController: BaseViewController {
+    
+    var list: List&lt;TodoTable&gt;! // Result&lt;</string>
+				<key>trailing</key>
+				<string>&gt;로는 안넘어와진다
+    
+    let mainView = TodoListView()
+</string>
+			</dict>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>93</string>
+					<key>EndingLineNumber</key>
+					<string>38</string>
+					<key>StartingColumnNumber</key>
+					<string>93</string>
+					<key>StartingLineNumber</key>
+					<string>38</string>
+					<key>Timestamp</key>
+					<string>730326259.67378</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>TodoProject/Todo/AddList/ListDetailViewController.swift</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string></string>
+				<key>leading</key>
+				<string>        }
+        // 이미지 가져오기
+        if let image = loadImageToDocument(filename: "\(list[indexPath.row].id)") { // 여기서 지정</string>
+				<key>trailing</key>
+				<string>해주는 시점이 더 빠른건가..?
+            cell.todoImageView.image = image
+        } else {
 </string>
 			</dict>
 			<key>type</key>
