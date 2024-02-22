@@ -83,9 +83,10 @@ class ClassifyViewController: BaseViewController {
         present(nav, animated: true)
     }
     
-    @objc
+    @objc // 목록 추가 버튼
     func addListButtonClicked() {
-        
+        let vc = AddListViewController()
+        present(vc, animated: true)
     }
     
     override func configureView() {

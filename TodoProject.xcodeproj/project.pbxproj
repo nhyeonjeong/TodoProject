@@ -37,11 +37,13 @@
 		8B2A67F22B7D00B60014F6E1 /* AddTodoMemoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2A67F12B7D00B60014F6E1 /* AddTodoMemoTableViewCell.swift */; };
 		8B2A67F42B7D00D40014F6E1 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2A67F32B7D00D40014F6E1 /* Protocol.swift */; };
 		8B2A67F92B7D02A60014F6E1 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2A67F82B7D02A60014F6E1 /* UIView+Extension.swift */; };
+		8B55B9452B851244003649F2 /* AddListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B55B9442B851244003649F2 /* AddListViewController.swift */; };
 		8B6F0D422B7D09F10032284C /* AddTodoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6F0D412B7D09F10032284C /* AddTodoTableViewCell.swift */; };
 		8B6F0D452B7D0D980032284C /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8B6F0D442B7D0D980032284C /* SnapKit */; };
 		8BBA88042B7D7F6800CC2143 /* ClassifyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBA88032B7D7F6800CC2143 /* ClassifyView.swift */; };
 		8BBA88082B7D80C900CC2143 /* ClassifyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBA88072B7D80C900CC2143 /* ClassifyCollectionViewCell.swift */; };
 		8BBA88132B7DF2D100CC2143 /* AddTodoButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBA88122B7DF2D100CC2143 /* AddTodoButtonView.swift */; };
+		8BE362812B8704FA00EFC62F /* ColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE362802B8704FA00EFC62F /* ColorCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -74,10 +76,12 @@
 		8B2A67F12B7D00B60014F6E1 /* AddTodoMemoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTodoMemoTableViewCell.swift; sourceTree = "<group>"; };
 		8B2A67F32B7D00D40014F6E1 /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
 		8B2A67F82B7D02A60014F6E1 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		8B55B9442B851244003649F2 /* AddListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddListViewController.swift; sourceTree = "<group>"; };
 		8B6F0D412B7D09F10032284C /* AddTodoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTodoTableViewCell.swift; sourceTree = "<group>"; };
 		8BBA88032B7D7F6800CC2143 /* ClassifyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassifyView.swift; sourceTree = "<group>"; };
 		8BBA88072B7D80C900CC2143 /* ClassifyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassifyCollectionViewCell.swift; sourceTree = "<group>"; };
 		8BBA88122B7DF2D100CC2143 /* AddTodoButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTodoButtonView.swift; sourceTree = "<group>"; };
+		8BE362802B8704FA00EFC62F /* ColorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +168,7 @@
 		8B2A67D92B7CFC3C0014F6E1 /* Todo */ = {
 			isa = PBXGroup;
 			children = (
+				8B55B9432B85122F003649F2 /* AddList */,
 				8B2A67EE2B7D00640014F6E1 /* Classify */,
 				8B0E6FEB2B7E432B008D9411 /* TodoList */,
 				8B2A67ED2B7D00480014F6E1 /* AddTodo */,
@@ -230,10 +235,19 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
+		8B55B9432B85122F003649F2 /* AddList */ = {
+			isa = PBXGroup;
+			children = (
+				8B55B9442B851244003649F2 /* AddListViewController.swift */,
+			);
+			path = AddList;
+			sourceTree = "<group>";
+		};
 		8BBA88062B7D807300CC2143 /* CollectionView */ = {
 			isa = PBXGroup;
 			children = (
 				8BBA88072B7D80C900CC2143 /* ClassifyCollectionViewCell.swift */,
+				8BE362802B8704FA00EFC62F /* ColorCollectionViewCell.swift */,
 			);
 			path = CollectionView;
 			sourceTree = "<group>";
@@ -328,6 +342,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8BE362812B8704FA00EFC62F /* ColorCollectionViewCell.swift in Sources */,
 				8B2A67E32B7CFC760014F6E1 /* PriorityViewController.swift in Sources */,
 				8B2A67DB2B7CFC450014F6E1 /* ClassifyViewController.swift in Sources */,
 				8B0E6FFC2B7E6614008D9411 /* DateFormatter+Extension.swift in Sources */,
@@ -340,6 +355,7 @@
 				8B2A67F42B7D00D40014F6E1 /* Protocol.swift in Sources */,
 				8B2A67EC2B7CFED80014F6E1 /* AddTodoView.swift in Sources */,
 				8B2A67DD2B7CFC530014F6E1 /* AddTodoViewController.swift in Sources */,
+				8B55B9452B851244003649F2 /* AddListViewController.swift in Sources */,
 				8B6F0D422B7D09F10032284C /* AddTodoTableViewCell.swift in Sources */,
 				8B2A67CA2B7CFA0F0014F6E1 /* ViewController.swift in Sources */,
 				8B2A67C62B7CFA0F0014F6E1 /* AppDelegate.swift in Sources */,

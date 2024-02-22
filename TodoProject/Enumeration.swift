@@ -125,3 +125,36 @@ enum TodoClassify: Int, CaseIterable {
         }
     }
 }
+
+
+enum ListColor: Int, CaseIterable {
+    case red = 0
+    case systemPink
+    case orange
+    case yellow
+    case green
+    case blue
+    case purple
+    case gray
+    
+    var uicolor: UIColor {
+        switch self{
+        case .red :
+            .red
+        case .systemPink :
+                .systemPink
+        case .orange :
+                .orange
+        case .yellow:
+                .yellow
+        case .green:
+                .green
+        case .blue:
+                .blue
+        case .purple:
+                .purple
+        case .gray:
+                .gray
+        }
+    }
+}
