@@ -6,9 +6,13 @@
 //
 
 import UIKit
+import Toast
+import RealmSwift
 
 class AddListViewController: BaseViewController {
 
+    let repository = ListTableRepository()
+    
     lazy var tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewClicked))
     
     let listColor = ListColor.allCases
@@ -65,11 +69,19 @@ class AddListViewController: BaseViewController {
     // realm create (realm list)
     @objc
     func okButtonClicked() {
-        if titleTextField.text == "" {
-            
+        if let text = titleTextField.text {
+            // 제목이 비었다면 toast
+            if text == "" {
+                view.makeToast("제목을 입력해주세요", duration: 1.0, position: .top)
+            } else {
+                let data = ListTable(listTitle: titleTextField.text!, colorIdx: selectedButtonIdx)
+                repository.createItem(data)
+                
+                dismiss(animated: true)
+            }
+        } else {
+            print("text is nil")
         }
-        
-        dismiss(animated: true)
     }
     
     // 색 버튼을 눌러서 색 설정

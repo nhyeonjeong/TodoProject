@@ -8,6 +8,26 @@
 import Foundation
 import RealmSwift
 
+// 상위 테이블
+class ListTable: Object {
+    @Persisted(primaryKey: true) var id: ObjectId
+    @Persisted var listTitle: String
+    @Persisted var regDate: Date
+    @Persisted var colorIdx: Int
+    // to many relationship
+    @Persisted var todo: List<TodoTable>
+    
+    convenience init(listTitle: String, colorIdx: Int) {
+        
+        self.init()
+        self.listTitle = listTitle
+        self.regDate = Date()
+        self.colorIdx = colorIdx
+    }
+}
+
+
+// 하위 테이블
 class TodoTable: Object {
     @Persisted(primaryKey: true) var id: ObjectId
     @Persisted var regDate: Date
@@ -17,6 +37,9 @@ class TodoTable: Object {
     @Persisted var tag: String?
     @Persisted var priority: Int // 우선순위는 Int타입으로
     @Persisted var isComplete: Bool // 완료했는지?
+    
+    // 역관계
+    @Persisted(originProperty: "todo") var main: LinkingObjects<ListTable>
     
     // convenience써주지 않으면 런타임 오류
     convenience init(memoTitle: String, memo: String, deadline: Date, tag: String? = nil, priority: Int) {
