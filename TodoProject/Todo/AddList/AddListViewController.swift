@@ -13,6 +13,8 @@ class AddListViewController: BaseViewController {
 
     let repository = ListTableRepository()
     
+    var tableReload: (() -> Void)?
+    
     lazy var tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewClicked))
     
     let listColor = ListColor.allCases
@@ -63,6 +65,7 @@ class AddListViewController: BaseViewController {
     // 화면 누르면 뷰 내려감
     @objc
     func viewClicked() {
+        print(#function)
         dismiss(animated: true)
     }
     
@@ -76,6 +79,8 @@ class AddListViewController: BaseViewController {
             } else {
                 let data = ListTable(listTitle: titleTextField.text!, colorIdx: selectedButtonIdx)
                 repository.createItem(data)
+                
+                tableReload?() // 확인누르면 테이블을 다시 그리도록
                 
                 dismiss(animated: true)
             }

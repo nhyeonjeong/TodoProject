@@ -49,6 +49,50 @@
 			<key>type</key>
 			<string>bookmark</string>
 		</dict>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>63</string>
+					<key>EndingLineNumber</key>
+					<string>94</string>
+					<key>StartingColumnNumber</key>
+					<string>54</string>
+					<key>StartingLineNumber</key>
+					<string>94</string>
+					<key>Timestamp</key>
+					<string>730316949.460775</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>TodoProject/Todo/Classify/ClassifyViewController.swift</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string> fullscre</string>
+				<key>leading</key>
+				<string>    func addListButtonClicked() {
+        let vc = AddListViewController()
+//        vc.modalPresentationStyle = .fullScreen // 왜</string>
+				<key>trailing</key>
+				<string>en으로 탭제스쳐도 안먹고 배경색도 이상해지는지?
+        vc.tableReload = {
+            self.list = self.listRepository.fetch()
+</string>
+			</dict>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
 	</array>
 </dict>
 </plist>
