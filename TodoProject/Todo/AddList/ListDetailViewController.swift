@@ -21,6 +21,7 @@ class ListDetailViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView()
+        mainView.backgroundColor = Constants.Color.backgroundColor
     }
 
 }
