@@ -134,16 +134,20 @@ extension ClassifyViewController {
         self.toolbarItems = items
     }
 }
+
 extension ClassifyViewController: UITableViewDelegate, UITableViewDataSource {
+    
     func configureTableView() {
         mainView.tableView.delegate = self
         mainView.tableView.dataSource = self
         mainView.tableView.register(ListTableViewCell.self, forCellReuseIdentifier: ListTableViewCell.identifier)
         mainView.tableView.register(ClassifyTableViewCell.self, forCellReuseIdentifier: ClassifyTableViewCell.identifier)
     }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return 1
@@ -153,10 +157,13 @@ extension ClassifyViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         if indexPath.section == 0 {
+            
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ClassifyTableViewCell.identifier, for: indexPath) as? ClassifyTableViewCell else {
                 return UITableViewCell()
             }
+            
             cell.collectionView.delegate = self
             cell.collectionView.dataSource = self
             cell.collectionView.register(ClassifyCollectionViewCell.self, forCellWithReuseIdentifier: ClassifyCollectionViewCell.identifier)

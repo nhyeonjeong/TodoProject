@@ -37,4 +37,24 @@ extension UIViewController {
             return UIImage(systemName: "start.fill")
         }
     }
+    
+    // remove
+    func removeImageFromDocument(filename: String) {
+        guard let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {return}
+        
+        let fileUrl = documentDirectory.appendingPathComponent("\(filename).jpg") // 존재한다면 제거
+        // bool타입을 반환하는 fileExists
+        if FileManager.default.fileExists(atPath: fileUrl.path()) {
+            do {
+                // atPath: 라면 String들어가고 at: 라면 Url타입이 들어간다
+                try FileManager.default.removeItem(atPath: fileUrl.path()) // removeItem은 throw으로 더닞고 있으니까 do try catch로 받기
+                
+            } catch {
+                print("file remove error")
+            }
+        } else {
+            print("file no exist, remove error")
+        }
+    }
 }
+

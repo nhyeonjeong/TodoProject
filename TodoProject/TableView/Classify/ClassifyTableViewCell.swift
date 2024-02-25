@@ -27,16 +27,16 @@ class ClassifyTableViewCell: UITableViewCell {
     func configureHierarchy() {
         contentView.addSubview(collectionView)
     }
+    
     func configureConstraints() {
         collectionView.snp.makeConstraints { make in
             make.edges.equalTo(contentView)
+            make.height.equalTo(380)
         }
-
     }
-
 }
+
 extension ClassifyTableViewCell {
-    
     func collectionViewLayout() -> UICollectionViewLayout {
         let inset: CGFloat = 15
         let screenwidth = UIScreen.main.bounds.width

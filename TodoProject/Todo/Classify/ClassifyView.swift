@@ -31,7 +31,6 @@ class ClassifyView: BaseView {
         self.backgroundColor = .clear
     }
     
-    
     // 스토리보드로 할 때 실행되는 구문
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -43,6 +42,7 @@ class ClassifyView: BaseView {
         addSubview(bigLabel)
         addSubview(tableView)
     }
+    
     override func configureConstraints() {
         bigLabel.snp.makeConstraints { make in
             make.top.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(15)
@@ -54,4 +54,3 @@ class ClassifyView: BaseView {
         }
     }
 }
-
