@@ -57,10 +57,14 @@ class AddTodoViewController: BaseViewController {
         super.viewDidLoad()
         navigationItem.title = "새로운 할 일"
         list = listRepository.fetch()
+
         
         if let idx = selectedListIdx {
+            print("dfd")
+            print(list[idx])
             todoSubTItles[5] = list[idx].listTitle
         }
+        print(todoSubTItles)
         
         // notificationCenter로 값 전달
         NotificationCenter.default.addObserver(self, selector: #selector(addTodoNotification), name: Notification.Name("AddTodo"), object: nil)
@@ -133,9 +137,7 @@ class AddTodoViewController: BaseViewController {
         dismiss(animated: true)
     }
     
-}
-
-extension AddTodoViewController {
+    // 상속받는 class에서 재정의해주려면 extension안에 써주면 안됨
     func settingBarButton() {
         let addButton = UIBarButtonItem(title: "추가", style: .plain, target: self, action: #selector(addButtonClicked))
         
@@ -148,6 +150,7 @@ extension AddTodoViewController {
     }
 }
 
+
 extension AddTodoViewController: UITableViewDelegate, UITableViewDataSource {
     
     func configureTableVeiw() {
@@ -156,7 +159,8 @@ extension AddTodoViewController: UITableViewDelegate, UITableViewDataSource {
         
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return todoCases.count
+        print(todoSubTItles,"addtodoviewcon")
+        return todoSubTItles.count // list가 없을 수도 있으니까 todoSubtitles에 맞춰서
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -171,8 +175,13 @@ extension AddTodoViewController: UITableViewDelegate, UITableViewDataSource {
             cell.memoTextView.delegate = self
             cell.titleTextField.delegate = self
             
+            var titleText = ""
+            var memoText = ""
+            // TodoDetail과 같이 쓰기 위해서
+            titleText = memoTitle == "" ? "제목" : memoTitle
+            memoText = memo == "" ? "메모" : memo
             let titleList = todoCases[indexPath.row].tableViewCellTitle
-            cell.configureCell(titleList: titleList)
+            cell.configureCellData(title: titleText, memo: memoText)
             return cell
         } else if indexPath.row == 4 { // 이미지
             guard let cell = tableView.dequeueReusableCell(withIdentifier: AddTodoImageTableViewCell.identifier, for: indexPath) as? AddTodoImageTableViewCell else {
@@ -184,7 +193,20 @@ extension AddTodoViewController: UITableViewDelegate, UITableViewDataSource {
             cell.configureCell(titleList: titleList, selectedImage: selectedImage)
             
             return cell
-        } else {
+        } else if indexPath.row == 5 {
+            // 목록 종류
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: AddTodoTableViewCell.identifier, for: indexPath) as? AddTodoTableViewCell else {
+                
+                print(#function, "AddTodoTableViewCell 타입캐스팅 실패")
+                return UITableViewCell()
+            }
+            let titleList = todoCases[indexPath.row].tableViewCellTitle
+            cell.configureCell(titleList: titleList, subtitle: todoSubTItles[indexPath.row])
+            
+            return cell
+            
+        } else { // 마감일, 태그, 이미지 띄우기
+            print(todoSubTItles[indexPath.row], "아감일, 태그, 이미지 추가")
             guard let cell = tableView.dequeueReusableCell(withIdentifier: AddTodoTableViewCell.identifier, for: indexPath) as? AddTodoTableViewCell else {
                 
                 print(#function, "AddTodoTableViewCell 타입캐스팅 실패")

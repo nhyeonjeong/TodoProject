@@ -117,4 +117,15 @@ final class TodoTableRepository {
             print(error)
         }
     }
+    
+    // update record
+    func updateRecord(_ item: TodoTable) {
+        do {
+            try realm.write {
+                realm.create(TodoTable.self, value: ["id": item.id, "regDate": Date(), "memoTitle": item.memoTitle, "memo": item.memo, "deadline": item.deadline, "tag": item.tag, "priority": item.priority, "isCompleted": item.isComplete], update: .modified)
+            }
+        } catch {
+            print("updateRecord upgrade error", error)
+        }
+    }
 }
